@@ -1,0 +1,276 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Otázky pro získání radioamatérského oprávnění v ČR
+{% endblock %}
+
+{% block body %}
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="tools" viewBox="0 0 16 16">
+    <path d="M1 0L0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z"/>
+  </symbol>
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path>
+  </symbol>
+    <symbol id="three-dots" viewBox="0 0 16 16">
+    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+  </symbol>
+</svg>
+
+
+  <header class="navbar navbar-expand-lg bd-navbar">
+  <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
+
+    <div class="d-flex">
+    <a class="navbar-brand p-0 me-0 me-lg-2" href="/" aria-label="hamotazky.cz">
+     {# <img class="d-inline-block menu-logo bg-light me-1" src="/assets/img/radiotower.png" alt="radio tower icon"/> #} 
+      <span>hamotazky.cz</span>
+    </a>
+    </div>
+
+    <div class="d-flex">
+
+      <button id="toggle-offcanvas-btn" class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" aria-controls="hamNavbarOffcanvas" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="hamNavbarOffcanvas" aria-labelledby="hamNavbarOffcanvasLabel" data-bs-scroll="true">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="hamNavbarOffcanvasLabel">hamotazky.cz</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#hamNavbarOffcanvas"></button>
+      </div>
+
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none text-white-50">
+        <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
+          <li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link anchored-link py-2 px-0 px-lg-2" aria-current="true" href="#otazky-harec">Otázky HAREC</a>
+          </li>
+          <li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link anchored-link py-2 px-0 px-lg-2" aria-current="true" href="#otazky-novice">Otázky NOVICE</a>
+          </li>
+          <li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link anchored-link py-2 px-0 px-lg-2" aria-current="true" href="#faq">Časté dotazy</a>
+          </li>
+          <li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link anchored-link py-2 px-0 px-lg-2" aria-current="true" href="#pro-vyvojare">Pro vývojáře</a>
+          </li>
+        </ul>
+
+        <hr class="d-lg-none text-white-50">
+
+        {{ include ('parts/themeToggler.html.twig') }}
+
+      </div>
+    </div>
+  </nav>
+</header>
+
+  <div class="h-divider"></div>
+
+  <div class="container px-4 py-4 py-lg-5">
+
+    <h3 id="otazky-harec" class="py-2 border-bottom">Příprava na operátorskou třídu A (HAREC)</h3>
+    <div class="row g-5 py-4 row-cols-1 row-cols-lg-3">
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <img class="feature-icon" src="/assets/img/bookstack.svg" alt="books icon"/>
+        </div>
+        <div>
+          <h4>Prohlížení otázek HAREC</h4>
+          <p>On-line výuka otázek k písemnému testu pro získání průkazu odborné způsobilosti třídy A k obsluze vysílacích rádiových zařízení amatérské radiokomunikační služby</p>
+          <a href="{{ path('harec-listing-topic-list') }}" class="btn btn-success">
+            Prohlížet otázky A
+          </a>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <img class="feature-icon" src="/assets/img/graduation.svg" alt="graduation icon"/>
+        </div>
+        <div>
+          <h4>Procvičování otázek HAREC</h4>
+          <p>On-line procvičování otázek pro třídu A. Můžeš procvičovat po jednotlivých kategoriích, nebo trénovat všechny otázky ze všech kategorií sloučených dohromady.</p>
+          <a href="{{ path('harec-practice-topic-list') }}" class="btn btn-success">
+            Procvičit otázky A
+          </a>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <img class="feature-icon" src="/assets/img/document.svg" alt="test icon" />
+        </div>
+        <div>
+          <h4>Cvičný test HAREC</h4>
+          <p>On-line cvičný test pro ověření znalostí otázek pro třídu A. Test je sestaven a vyhodnocován dle stejných kritérií jako u opravdové zkoušky.</p>
+          <a href="{{ path('harec-individual-test') }}" class="btn btn-success">
+            Vyzkoušet test A
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="h-divider"></div>
+
+  <div class="container px-4 py-4 py-lg-5">
+    <h3 id="otazky-novice" class="py-2 border-bottom">Otázky pro operátorskou třídu N (NOVICE)</h3>
+    <div class="row g-5 py-4 row-cols-1 row-cols-lg-3">
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <img class="feature-icon" src="/assets/img/bookstack.svg" alt="books icon"/>
+        </div>
+        <div>
+          <h4>Prohlížení otázek NOVICE</h4>
+          <p>On-line prohlížení otázek k písemnému testu pro získání průkazu odborné způsobilosti třídy N k obsluze vysílacích rádiových zařízení amatérské radiokomunikační služby</p>
+          <a href="{{ path('novice-listing-topic-list') }}" class="btn btn-success">
+            Prohlížet otázky N
+          </a>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <img class="feature-icon" src="/assets/img/graduation.svg" alt="graduation icon"/>
+        </div>
+        <div>
+          <h4>Procvičování otázek NOVICE</h4>
+          <p>On-line procvičování otázek pro třídu N. Můžeš procvičovat po jednotlivých kategoriích, nebo trénovat všechny otázky ze všech kategorií sloučených dohromady.</p>
+          <a href="{{ path('novice-practice-topic-list') }}" class="btn btn-success">
+            Procvičit otázky N
+          </a>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <img class="feature-icon" src="/assets/img/document.svg" alt="test icon" />
+        </div>
+        <div>
+          <h4>Cvičný test NOVICE</h4>
+          <p>On-line cvičný test pro ověření znalostí otázek pro třídu N. Test je sestaven a vyhodnocován dle stejných kritérií jako u opravdové zkoušky.</p>
+          <a href="{{ path('novice-individual-test') }}" class="btn btn-success">
+            Vyzkoušet test N
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    <div class="h-divider"></div>
+
+  <div class="container px-4 py-4 py-lg-5">
+    <h3 id="faq" class="py-2 border-bottom">Časté dotazy</h3>
+    <div class="row g-5 py-4 row-cols-1">
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+           <img class="feature-icon" src="/assets/img/radar.svg" alt="radar icon" />
+        </div>
+        <div>
+          <h4>Jsou otázky aktuální?</h4>
+          <p>Nejsem sice <a href="https://ctu.gov.cz/druhy-prukazu" target="_blank">Český telekomunikační úřad</a>, ale otázky zde udržuji aktuální díky automatickému monitoringu webu ČTÚ. Otázky na tomto webu slouží totiž také jako zdroj dat pro <a href="https://itunes.apple.com/app/apple-store/id6472734388?mt=8" target="_blank">iPhone aplikaci Ham Operátor</a> a záleži mi na tom, aby všichni aspirující radioamatéři měli k dispozici data aktuální a aby učení bylo příjemné a přístupné i z mobilních zařízení.</p>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+           <img class="feature-icon" src="/assets/img/radar.svg" alt="radar icon" />
+        </div>
+        <div>
+          <h4>Kterou operátorskou třídu si mám vybrat?</h4>
+          <p>Ze zkušenosti mnohých radioamatérů je lepší udělat si rovnou "vyšší" třídu A (HAREC). Otázek k naučení není zase o tolik více a třída A umožňuje rovnou vysílat na všech povolených pásmech a s vyšším výkonem. Pokud se rozhodneš i tak udělat si třídu N, v případě, že by se ti vysílání, například na krátkých vlnách, zalíbilo a budeš si chtít "dodělat" třídu A, musíš se stejně naučit všechny otázky znovu, nikoli jen rozdíl mezi třídami A a N. Proto je lepší udělat si rovnou třídu A 😊.</p>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+           <img class="feature-icon" src="/assets/img/radar.svg" alt="radar icon" />
+        </div>
+        <div>
+          <h4>Proč bych se měl stát radioamatérem?</h4>
+          <p>Když už si zavítal na tenhle web, tak už odpověď nejspíš znáš, ale kdyby náhodou ne, tady je pár důvodů: Radioamatérství je rozmanitá aktivita, kde si každý, koho baví rádiové vlny, najde to svoje. Může to být vysílání pro radost a sebevzdělávání, závodění v radioamatérských závodech místních i mezinárodních či konstruktérská činnost. Radioamatéři mohou být nápomocni při zajišťování komunikace v případě přírodních katastrof a nouzových stavů. Taky se můžeš díky provozu na radioamatérských pásmech zdokonalit v jazycích. A tohle je jen zlomek toho co vše je možné.</p>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+           <img class="feature-icon" src="/assets/img/radar.svg" alt="radar icon" />
+        </div>
+        <div>
+          <h4>Proč tahle stránka existuje?</h4>
+          <p>Nedávno jsem sám dělal zkoušku a postrádal jsem nějaký příjmený způsob jak se otázky učit. Na webu ČTÚ jsou otázky k dispozici, ale jen ve formě PDF, jehož forma mi úplně nevyhovovala a navíc v případě že se chci učit na mobilu, tak PDF není to pravé ořechové (špatně se v něm hledá, není responzivní...), takže jsem si nakonec napsal aplikaci <a href="https://itunes.apple.com/app/apple-store/id6472734388?mt=8" target="_blank">Ham Operátor pro iPhone</a> ze které jsem se učil a zveřejnil zdarma na AppStore i pro ostatní. Když už jsem pro účely zmíněné aplikace připravil data o otázkách ve strukturované formě, vyčistil je a opravil překlepy, říkal jsem si že by byla škoda data nezveřejnit, aby z nich mohla těžit celá OK HAM komunita. Proto data zvěřejňuji dál jak v lidsky čitelné formě, tak ve formě strojově čitelných dat. A protože aplikace pro Android programovat neumím, třeba někdo kdo to umí data využije a appku napíše 😊. Přál bych si, aby se tento web stal interaktivním "centrálním zdrojem pravdy" k otázkám na zkoušky rádiových operátorů v ČR a aby správci webů, skupin a aplikací s radioamatérskou tématikou ideálně odkazovali tento web, kde data budu udržovat aktuální. Jestli se to povede ukáže čas 😊</p>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+           <img class="feature-icon" src="/assets/img/radar.svg" alt="radar icon" />
+        </div>
+        <div>
+          <h4>Našel jsem chybu/nepřesnost</h4>
+          <p>Dole v patičce této stránky je na mě kontakt. Napiš mi a uvidíme co se s tím dá dělat.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="h-divider"></div>
+
+  <div class="container px-4 py-4 py-lg-5">
+    <h3 id="pro-vyvojare" class="py-2 border-bottom">Pro vývojáře</h3>
+    <div class="row g-5 py-4 row-cols-1 row-cols-lg-3">
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#tools"></use></svg>
+        </div>
+        <div>
+          <h4>REST API</h4>
+          <p>Sada API endpointů pro použití v tvojí aplikaci. Obsahuje vždy aktuální verzi otázek pro obě operátorské třídy.</p>
+          <a href="{{ url('homepage') }}api/v1/docs/" target="_blank" class="btn btn-success">
+            Přejít na dokumentaci
+          </a>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#tools"></use></svg>
+        </div>
+        <div>
+          <h4>JSON</h4>
+          <p>JSON soubor který obsahuje otázky aktuální v dnešní datum. Data v souboru zahrnují obě operátorské třídy.</p>
+          <a href="{{ path('download-json-questions') }}" class="btn btn-success">
+            Stáhnout JSON
+          </a>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#tools"></use></svg>
+        </div>
+        <div>
+          <h4>SQLite3</h4>
+          <p>SQLite3 databáze která obsahuje otázky aktuální v dnešní datum. Databáze zahrnuje obě operátorské třídy.</p>
+          <a href="{{ path('download-sqlite-questions') }}" class="btn btn-success">
+            Stáhnout SQLite
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include ('parts/footer.html.twig') }}
+
+{% endblock %}

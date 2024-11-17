@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+HAM Otázky z kategorie {{ topicName }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/assets/js/practice.js"></script>        
+{% endblock %}
+
+{% block body %}
+
+    <header class="navbar navbar-expand-lg bd-navbar border-bottom">
+      <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
+
+        <div class="d-flex">
+        <a class="navbar-brand p-0 me-0 me-lg-2" href="/" aria-label="hamotazky.cz">
+        {# <img class="d-inline-block menu-logo bg-light me-1" src="/assets/img/radiotower.png" alt="radio tower icon"/> #} 
+          <span>hamotazky.cz</span>
+        </a>
+        </div>
+
+        <div class="d-flex">
+
+          <button id="toggle-offcanvas-btn" class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" aria-controls="hamNavbarOffcanvas" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="hamNavbarOffcanvas" aria-labelledby="hamNavbarOffcanvasLabel" data-bs-scroll="true">
+          <div class="offcanvas-header px-4 pb-0">
+            <h5 class="offcanvas-title" id="hamNavbarOffcanvasLabel">hamotazky.cz</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#hamNavbarOffcanvas"></button>
+          </div>
+
+          <div class="offcanvas-body p-4 pt-0 p-lg-0">
+
+            <hr class="d-lg-none text-white-50">
+
+            {{ include ('parts/themeToggler.html.twig') }}
+
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="px-4 py-3 text-center border-bottom bg-body-tertiary my-box-shadow-2">
+        <h1 class="fs-1">{{ topicName }}</h1>
+        <p class="text-muted mb-2">Procvičování testových otázek pro třídu {{ licenceClass }} ({{ licenceClassString }})</p> 
+        <p class="text-muted mb-0">Celkem {{ questionCount }} otázek</p>
+    </div>
+
+    <div class="container px-3 py-2">
+
+        <div class="centered-container mt-2">
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ url('homepage') }}">Domů</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path(licenceClassStringLowerCase~'-practice-topic-list') }}">Procvičování</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ topicName }}</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="row py-2 row-cols-1">
+            <div class="col">
+                {% for q in questions %}
+                    <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-question-box-{{ q.questionId }}">
+                        <p class="mt-1 mb-3 fs-5 ms-md-3">{{ q.text }}</p>
+                        <ul class="list-group mx-md-3 mb-3">
+                            {% for a in q.answers %}
+                                <li class="py-3 list-group-item list-group-item-secondary js-answer-row" data-is-correct="{{ a.isCorrect ? '1' : '0' }}" data-question-id="{{ q.questionId }}">
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-3 js-question-bullet">🔵</span>
+                                        <span class="fs-6">{{ a.text }}</span>
+                                    </div>
+                                </li>
+                            {% endfor %} 
+                        </ul>
+                    </div>
+                {% endfor %}    
+            </div>
+        </div>
+
+    </div>
+
+    {{ include ('parts/footer.html.twig') }}
+
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Výsledek testu z HAM otázek pro operátorskou třídu {{ licenceClass }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/assets/js/testStorage.js"></script>
+  <script src="/assets/js/individualTestResult.js"></script>
+{% endblock %}
+
+{% block body %}
+
+    <header class="navbar navbar-expand-lg bd-navbar border-bottom">
+      <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
+
+        <div class="d-flex">
+        <a class="navbar-brand p-0 me-0 me-lg-2" href="/" aria-label="hamotazky.cz">
+        {# <img class="d-inline-block menu-logo bg-light me-1" src="/assets/img/radiotower.png" alt="radio tower icon"/> #} 
+          <span>hamotazky.cz</span>
+        </a>
+        </div>
+
+        <div class="d-flex">
+
+          <button id="toggle-offcanvas-btn" class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" aria-controls="hamNavbarOffcanvas" aria-label="Toggle navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="hamNavbarOffcanvas" aria-labelledby="hamNavbarOffcanvasLabel" data-bs-scroll="true">
+          <div class="offcanvas-header px-4 pb-0">
+            <h5 class="offcanvas-title" id="hamNavbarOffcanvasLabel">hamotazky.cz</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#hamNavbarOffcanvas"></button>
+          </div>
+
+          <div class="offcanvas-body p-4 pt-0 p-lg-0">
+
+            <hr class="d-lg-none text-white-50">
+
+            {{ include ('parts/themeToggler.html.twig') }}
+
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="px-4 py-3 text-center border-bottom bg-body-tertiary my-box-shadow-2">
+        <h1 class="fs-1">Výsledek testu pro třídu {{ licenceClass }} ({{ licenceClassString }})</h1>
+        <p class="text-muted mb-0">Cvičný test dle stejných kritérií jako u opravdové zkoušky</p>
+    </div>
+
+    <div class="container px-3 py-2">
+
+        <div class="centered-container mt-2">
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ url('homepage') }}">Domů</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Výsledek testu</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="centered-container pb-0 text-center">
+
+          {% if evaluation.passedOverall %}
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="144" height="144" viewBox="0 0 48 48">
+                <path fill="#c8e6c9" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#4caf50" d="M34.586,14.586l-13.57,13.586l-5.602-5.586l-2.828,2.828l8.434,8.414l16.395-16.414L34.586,14.586z"></path>
+              </svg>
+              <p class="fs-3 mb-1 mt-2">Gratulujeme! Úspěšně jste zvládli test nanečisto pro získání radioamatérského oprávnění</p>
+          {% else %}
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="144" height="144" viewBox="0 0 48 48">
+                <path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path>
+              </svg>
+              <p class="fs-3 mb-1 mt-2">Je nám líto, ale bohužel jste nesplnili kritéria pro úspěšné absolvování testu</p>
+          {% endif %}
+
+          <div class="mt-3">
+            <p class="mb-2">Celkem jste získali {{ evaluation.totalCorrectAnswers }} bodů z {{ evaluation.totalCorrectAnswers + evaluation.totalWrongAnswers }} možných.</p>
+            {% if evaluation.passedOverall == false %}
+              <p>Pro úspěch je však potřeba úspěšně absolvovat všechny tři části testu.</p>
+            {% endif %}
+          </div>
+
+        </div>
+    </div>
+
+  <hr>
+
+    <div class="container px-3 py-2">
+
+        <div class="centered-container pb-0 text-center">
+          {% for groupId, groupData in evaluation.resultsByTopicGroup %}
+            <div class="mb-5">
+                {% set progressBarExtraClass = groupData.passed ? 'bg-success' : 'bg-danger' %}
+                <div class="fs-4">Úspěšnost v části {{ groupId }}: {{ test.testParts[groupId - 1].topicGroup.name }}</div>
+                <div>
+                  <p class="mt-2 mb-2">V této části jste získali {{ groupData.correctAnswersCount }} bodů z {{ groupData.groupQuestionCount }} možných.</p>
+                  <p>Pro úspěch bylo potřeba získat alespoň {{ groupData.minimumPointsToPass }} bodů.</p>
+                </div>
+                <div class="progress position-relative" style="height: 3em;">
+                  <div class="progress-bar {{ progressBarExtraClass }}" role="progressbar" style="width: {{ groupData.correctAnswersPercentage }}%;" aria-valuenow="{{ groupData.correctAnswersPercentage }}" aria-valuemin="0" aria-valuemax="100">
+                        <span class="fs-5 justify-content-center d-flex position-absolute w-100">{{ groupData.correctAnswersPercentage }}%</span>
+                  </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="collapse" id="testContent">
+          {% for groupData in test.testParts %}
+            <div class="centered-container mt-4 pb-0">
+              <span class="fs-2">Část {{ loop.index }}: {{ groupData.topicGroup.name }}</span>
+            </div>
+
+            <div class="row py-2 row-cols-1">
+                <div class="col">
+                    {% for q in groupData.topicGroupQuestions %}
+                        <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1">
+                            <p class="mt-1 mb-3 fs-5 ms-md-3">{{ q.text }}</p>
+
+                            {# find correct answerId for question #}
+                            {% set correctAnswerId = null %}
+                            {% for a in q.answers %}
+                              {% if a.isCorrect %}
+                                {% set correctAnswerId = a.answerId %}
+                              {% endif %}
+                            {% endfor %} 
+
+                            {% set userAnswerId = userAnswers[q.questionId] ?? null %}
+                            {% set userHasAnsweredTheQuestion = userAnswerId != null %}
+                            {% set userHasAnsweredCorrectly = userHasAnsweredTheQuestion and userAnswerId == correctAnswerId %}                
+                            {% set userHasAnsweredWrongly = userHasAnsweredTheQuestion and userAnswerId != correctAnswerId %}                
+
+                            <ul class="list-group mx-md-3 mb-3">                         
+                                {% for a in q.answers %}
+                                  {% set extraLiClass = '' %}
+                                  {% set leftBullet = '🔵' %}
+                                
+                                  {% if a.isCorrect and (userHasAnsweredCorrectly or userHasAnsweredWrongly) %}
+                                    {% set extraLiClass = 'list-group-item-success' %}
+                                    {% set leftBullet = '✅' %}
+                                  {% elseif a.isCorrect == false and userHasAnsweredWrongly and a.answerId == userAnswerId %}
+                                    {% set extraLiClass = 'list-group-item-secondary' %}
+                                    {% set leftBullet = '❌' %}
+                                  {% endif %}
+
+                                  <li class="py-3 list-group-item {{ extraLiClass }}">
+                                      <div class="d-flex align-items-center">
+                                          <span class="me-3">{{ leftBullet }}</span>
+                                          <span class="fs-6">{{ a.text }}</span>
+                                      </div>
+                                  </li>
+                                {% endfor %} 
+                            </ul>
+                        </div>
+                    {% endfor %}    
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="d-grid gap-2 centered-container px-0 py-0 mt-5">
+          <button class="btn btn-lg btn-primary mb-4" id="show-test-button" type="button" aria-expanded="false">Zobrazit absolvovaný test</button>
+          <a href="{{ url('homepage') }}" class="btn btn-lg btn-primary mb-4">Návrat na hlavní stránku</a>
+        </div>
+
+    </div>
+
+    {{ include ('parts/footer.html.twig') }}
+
+{% endblock %}

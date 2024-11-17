@@ -1,0 +1,52 @@
+.centered-container {
+    border-radius: 15px;
+    padding: 1em;
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+}
+
+.h-divider {
+    height: 1.2rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.icon-square {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border-radius: .75rem;
+}
+
+.feature-icon {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.bi {
+    width: 1em;
+    height: 1em;
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.menu-logo {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 0.4em;
+    font-size: 1.5rem;
+}
+
+.my-box-shadow-1 {
+    box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,0.1),inset 0 -1px 0 rgba(255,255,255,0.1)
+}
+
+.my-box-shadow-2 {
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1),inset 0 -1px 0 rgba(255,255,255,0.1)
+}

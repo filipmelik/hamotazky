@@ -1,0 +1,2179 @@
+{
+    "test": {
+        "testParts": [
+            {
+                "topicGroup": {
+                    "topicGroupId": "1",
+                    "name": "Radiokomunikační předpisy",
+                    "topics": [
+                        {
+                            "topicId": "1",
+                            "name": "Předpisy ITU",
+                            "topicSlug": "predpisy-itu",
+                            "questionCount": 16,
+                            "topicGroupId": "1"
+                        },
+                        {
+                            "topicId": "2",
+                            "name": "Předpisy CEPT",
+                            "topicSlug": "predpisy-cept",
+                            "questionCount": 16,
+                            "topicGroupId": "1"
+                        },
+                        {
+                            "topicId": "3",
+                            "name": "Předpisy vycházející z legislativy ČR",
+                            "topicSlug": "predpisy-cr",
+                            "questionCount": 48,
+                            "topicGroupId": "1"
+                        }
+                    ]
+                },
+                "topicGroupQuestions": [
+                    {
+                        "questionId": "2",
+                        "questionCode": "2",
+                        "text": "Stanicí amatérské radiokomunikační služby se rozumí:",
+                        "topicId": "1",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "5",
+                                "text": "jedno nebo více vysílacích a přijímacích zařízení včetně příslušenství, umožňující komunikaci v radioamatérských pásmech",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "4",
+                                "text": "libovolné stanoviště",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "6",
+                                "text": "transceiver",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "3",
+                        "questionCode": "3",
+                        "text": "Obecná ustanovení Radiokomunikačního řádu Mezinárodní telekomunikační unie (ITU) se:",
+                        "topicId": "1",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "8",
+                                "text": "týkají i amatérské služby",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "7",
+                                "text": "netýkají amatérské družicové služby",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "9",
+                                "text": "netýkají všech služeb",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "5",
+                        "questionCode": "5",
+                        "text": "Krátkodobé vysílání držitele povolení amatérské služby z území jiného státu závisí na:",
+                        "topicId": "1",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "14",
+                                "text": "usnesení národní radioamatérské organizace",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "13",
+                                "text": "ustanovení Radiokomunikačního řádu",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "15",
+                                "text": "povolovacím orgánu navštíveného státu",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "6",
+                        "questionCode": "6",
+                        "text": "Česká republika se nachází v ITU regionu:",
+                        "topicId": "1",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "16",
+                                "text": "2",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "18",
+                                "text": "1",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "17",
+                                "text": "3",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "8",
+                        "questionCode": "8",
+                        "text": "Radioamatérská stanice může být použita v zájmu třetí osoby:",
+                        "topicId": "1",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "24",
+                                "text": "pro zajištění komunikace v případě přírodních katastrof",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "22",
+                                "text": "vždy",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "23",
+                                "text": "při sdělení informací rodinným příslušníkům",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "14",
+                        "questionCode": "14",
+                        "text": "Česká republika má přiděleny série volacích značek:",
+                        "topicId": "1",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "40",
+                                "text": "OKA – OKZ a OLA - OLZ",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "41",
+                                "text": "OKA – OKZ, OLA – OLZ a OMA - OMZ",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "42",
+                                "text": "OL1 – OL0 a OK1 a- OK0",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "21",
+                        "questionCode": "21",
+                        "text": "V souladu s Doporučením CEPT T/R 61-01 je možno krátkodobě vysílat:",
+                        "topicId": "2",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "63",
+                                "text": "i z nečlenských zemí CEPT, které k Doporučení CEPT T/R 61-01 přistoupily",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "61",
+                                "text": "jen ze zemí CEPT",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "62",
+                                "text": "jen ze zemí CEPT, které k Doporučení CEPT T/R 61-01 přistoupily",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "26",
+                        "questionCode": "26",
+                        "text": "Na oprávnění podle předpisů Evropské konference poštovních a telekomunikačních správ (CEPT) nemusí být uvedeno",
+                        "topicId": "2",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "77",
+                                "text": "platnost",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "78",
+                                "text": "název amatérské rádiové stanice v souladu s Doporučením T/R 61-01 v němčině",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "76",
+                                "text": "rodné číslo držitele povolení",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "34",
+                        "questionCode": "34",
+                        "text": "Staniční deník:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "101",
+                                "text": "vede se pouze v písemné formě",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "102",
+                                "text": "je požadován pouze u klubových stanic",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "100",
+                                "text": "vede se pouze v elektronické formě",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "37",
+                        "questionCode": "37",
+                        "text": "Při vysílání mimo stanovišť uvedených v oprávnění",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "110",
+                                "text": "doplníme volací značku o „/p“ při mobilním provozu",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "111",
+                                "text": "doplníme volací značku o „/p“ při provozu z pevného stanoviště",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "109",
+                                "text": "doplníme volací značku o „/m“ při provozu z pevného stanoviště",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "39",
+                        "questionCode": "39",
+                        "text": "Použití „/p“ a „/m“ není na přechodném stanovišti povinné:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "117",
+                                "text": "trvá-li spojení kratší dobu než 5 minut",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "115",
+                                "text": "při radioamatérských závodech",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "116",
+                                "text": "při spojení přes převáděč",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "43",
+                        "questionCode": "43",
+                        "text": "Za obsluhu klubové stanice odpovídá:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "129",
+                                "text": "dozírající operátor",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "127",
+                                "text": "vedoucí operátor",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "128",
+                                "text": "obsluha stanice",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "47",
+                        "questionCode": "47",
+                        "text": "Kdy se mohou v radioamatérském provozu vysílat kódované zprávy?",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "139",
+                                "text": "nikdy",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "141",
+                                "text": "během závodů",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "140",
+                                "text": "při provozu během tísňových situací",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "50",
+                        "questionCode": "50",
+                        "text": "Jaký je maximální vysílaný výkon, který může operátor třídy A použít během závodu na kmitočtu 50 105 kHz:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "150",
+                                "text": "25 W PEP",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "149",
+                                "text": "750 W PEP",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "148",
+                                "text": "250 W PEP",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "51",
+                        "questionCode": "51",
+                        "text": "Jaký je maximální vysílaný výkon, který může operátor třídy A použít během běžného provozu na kmitočtu 1 820 kHz:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "152",
+                                "text": "250 W PEP",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "151",
+                                "text": "20 W PEP",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "153",
+                                "text": "750 W PEP",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "53",
+                        "questionCode": "54",
+                        "text": "Oprávnění stanice amatérské radiokomunikační služby má platnost:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "159",
+                                "text": "neomezenou",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "157",
+                                "text": "1 rok",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "158",
+                                "text": "zpravidla 5 let, pokud není vydáno na dobu kratší",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "57",
+                        "questionCode": "58",
+                        "text": "Fonický provoz LSB nelze uskutečnit na kmitočtu:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "169",
+                                "text": "3 800 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "170",
+                                "text": "10,14 MHz",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "171",
+                                "text": "7 150 kHz",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "70",
+                        "questionCode": "71",
+                        "text": "Vlastní volací značku je nutno uvádět:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "209",
+                                "text": "na začátku a konci spojení, je-li kratší než 10 minut",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "208",
+                                "text": "vždy na začátku a konci relace",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "210",
+                                "text": "pouze na začátku spojení",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "71",
+                        "questionCode": "72",
+                        "text": "Vlastní volací značku při delším spojení je nutno uvádět:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "212",
+                                "text": "na začátku a konci spojení a při delším spojení každých 10 minut",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "211",
+                                "text": "vždy na začátku a konci relace",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "213",
+                                "text": "na začátku a konci spojení",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "80",
+                        "questionCode": "81",
+                        "text": "Na neinterferenční bázi má držitel oprávnění třídy A amatérské radiokomunikační služby v České republice povoleno pásmo:",
+                        "topicId": "3",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "240",
+                                "text": "7100 až 7200 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "238",
+                                "text": "430 až 440 MHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "239",
+                                "text": "50 až 52 MHz",
+                                "isCorrect": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "topicGroup": {
+                    "topicGroupId": "2",
+                    "name": "Radiokomunikační provoz",
+                    "topics": [
+                        {
+                            "topicId": "4",
+                            "name": "Rozvrh kmitočtů a druhů provozu v radioamatérských pásmech",
+                            "topicSlug": "kmitocty-a-druhy-provozu",
+                            "questionCount": 40,
+                            "topicGroupId": "2"
+                        },
+                        {
+                            "topicId": "5",
+                            "name": "Hláskovací abeceda česká",
+                            "topicSlug": "hlaskovaci-abeceda-ceska",
+                            "questionCount": 26,
+                            "topicGroupId": "2"
+                        },
+                        {
+                            "topicId": "6",
+                            "name": "Hláskovací abeceda mezinárodní",
+                            "topicSlug": "hlaskovaci-abeceda-mezinarodni",
+                            "questionCount": 26,
+                            "topicGroupId": "2"
+                        },
+                        {
+                            "topicId": "7",
+                            "name": "Provozní dovednosti",
+                            "topicSlug": "provozni-dovednosti",
+                            "questionCount": 40,
+                            "topicGroupId": "2"
+                        },
+                        {
+                            "topicId": "8",
+                            "name": "Q kódy",
+                            "topicSlug": "q-kody",
+                            "questionCount": 40,
+                            "topicGroupId": "2"
+                        },
+                        {
+                            "topicId": "9",
+                            "name": "Zkratky používané v radioamatérské komunikaci",
+                            "topicSlug": "zkratky",
+                            "questionCount": 180,
+                            "topicGroupId": "2"
+                        },
+                        {
+                            "topicId": "10",
+                            "name": "Používání prefixů ve volacích značkách",
+                            "topicSlug": "prefixy",
+                            "questionCount": 120,
+                            "topicGroupId": "2"
+                        }
+                    ]
+                },
+                "topicGroupQuestions": [
+                    {
+                        "questionId": "82",
+                        "questionCode": "87",
+                        "text": "V pásmu 1,8 MHz je celý úsek pro FONE provoz:",
+                        "topicId": "4",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "245",
+                                "text": "1840 kHz – 1990 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "246",
+                                "text": "1830 kHz – 2000 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "244",
+                                "text": "1840 kHz – 2000 kHz",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "83",
+                        "questionCode": "88",
+                        "text": "V pásmu 1,8 MHz je výhradně pro CW provoz určen kmitočtový úsek:",
+                        "topicId": "4",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "247",
+                                "text": "1810 kHz – 1990 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "248",
+                                "text": "1810 kHz – 1838 kHz",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "249",
+                                "text": "1840 kHz – 1990 kHz",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "85",
+                        "questionCode": "90",
+                        "text": "V pásmu 3,5 MHz je celý úsek pro FONE provoz:",
+                        "topicId": "4",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "255",
+                                "text": "3600 kHz – 3800 kHz",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "253",
+                                "text": "3500 kHz – 3700 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "254",
+                                "text": "3580 kHz – 3740 kHz",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "87",
+                        "questionCode": "92",
+                        "text": "V pásmu 3,5 MHz je výhradně pro CW provoz určen kmitočtový úsek:",
+                        "topicId": "4",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "259",
+                                "text": "3500 kHz – 3600 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "261",
+                                "text": "3500 kHz – 3580 kHz",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "260",
+                                "text": "3500 kHz – 3650 kHz",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "102",
+                        "questionCode": "107",
+                        "text": "V pásmu 21 MHz je pro digitální provozy určen kmitočtový úsek:",
+                        "topicId": "4",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "304",
+                                "text": "21100 kHz – 21135 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "305",
+                                "text": "21070 kHz – 21120 kHz",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "306",
+                                "text": "21090 kHz – 21149 kHz",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "106",
+                        "questionCode": "111",
+                        "text": "V pásmu 28 MHz je pro FONE provoz určen úsek:",
+                        "topicId": "4",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "317",
+                                "text": "28225 kHz – 29300 kHz",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "318",
+                                "text": "28100 kHz – 29700 kHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "316",
+                                "text": "29510 kHz – 29700 kHz",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "127",
+                        "questionCode": "164",
+                        "text": "G česká",
+                        "topicId": "5",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "379",
+                                "text": "Gustav",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "381",
+                                "text": "Golf",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "380",
+                                "text": "George",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "131",
+                        "questionCode": "176",
+                        "text": "K česká",
+                        "topicId": "5",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "391",
+                                "text": "Kamil",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "392",
+                                "text": "Karel",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "393",
+                                "text": "Kateřina",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "155",
+                        "questionCode": "172",
+                        "text": "I mezinárodní",
+                        "topicId": "6",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "463",
+                                "text": "Indiana",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "464",
+                                "text": "Ital",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "465",
+                                "text": "India",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "174",
+                        "questionCode": "127",
+                        "text": "Pod jakým azimutem se za normálních podmínek šíření směruje z Prahy nejkratším směrem na Sněžku:",
+                        "topicId": "7",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "522",
+                                "text": "cca 115°",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "521",
+                                "text": "cca 50°",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "520",
+                                "text": "cca 300°",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "182",
+                        "questionCode": "135",
+                        "text": "Pod jakým azimutem se za normálních podmínek šíření směruje z Prahy nejkratším směrem na Australii:",
+                        "topicId": "7",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "545",
+                                "text": "cca 230°",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "544",
+                                "text": "cca 85°",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "546",
+                                "text": "cca 160°",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "190",
+                        "questionCode": "152",
+                        "text": "Tísňové volání pro FONE provoz je:",
+                        "topicId": "7",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "568",
+                                "text": "HELP ME",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "569",
+                                "text": "HILFE",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "570",
+                                "text": "MAYDAY",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "198",
+                        "questionCode": "163",
+                        "text": "Když stanice pracující na KV dostane report „588“ znamená to:",
+                        "topicId": "7",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "592",
+                                "text": "Dokonale čitelné, 25 uV na 50 Ohm vstupu RX, zcela čistý tón.",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "593",
+                                "text": "Čitelné, 25 uV na 50 Ohm vstupu RX, zcela čistý tón.",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "594",
+                                "text": "Dokonale čitelné, 25 uV na 50 Ohm vstupu RX, čistý tón s nádechem střídavé složky.",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "221",
+                        "questionCode": "228",
+                        "text": "Jste připraven?",
+                        "topicId": "8",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "661",
+                                "text": "QRU?",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "662",
+                                "text": "QSV?",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "663",
+                                "text": "QRV?",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "231",
+                        "questionCode": "238",
+                        "text": "Váš kmitočet kolísá",
+                        "topicId": "8",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "691",
+                                "text": "QTH",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "692",
+                                "text": "QRA",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "693",
+                                "text": "QRH",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "240",
+                        "questionCode": "247",
+                        "text": "Síla Vašich značek je",
+                        "topicId": "8",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "718",
+                                "text": "QSA",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "720",
+                                "text": "QSL",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "719",
+                                "text": "QSK",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "249",
+                        "questionCode": "256",
+                        "text": "Přijal jsem nouzový signál",
+                        "topicId": "8",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "745",
+                                "text": "QUF",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "746",
+                                "text": "QUA",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "747",
+                                "text": "QUD",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "258",
+                        "questionCode": "265",
+                        "text": "automatické řízení úrovně",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "772",
+                                "text": "ALC",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "773",
+                                "text": "AGC",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "774",
+                                "text": "AVC",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "272",
+                        "questionCode": "279",
+                        "text": "já",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "815",
+                                "text": "R",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "816",
+                                "text": "K",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "814",
+                                "text": "I",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "274",
+                        "questionCode": "281",
+                        "text": "anténa",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "821",
+                                "text": "AST",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "822",
+                                "text": "ATR",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "820",
+                                "text": "ANT,AER",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "285",
+                        "questionCode": "292",
+                        "text": "slunečno",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "853",
+                                "text": "ONLY",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "855",
+                                "text": "SUNNY",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "854",
+                                "text": "NEXT",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "295",
+                        "questionCode": "302",
+                        "text": "podmínky pro spojení",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "884",
+                                "text": "CONDS",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "883",
+                                "text": "CONDX",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "885",
+                                "text": "DX",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "314",
+                        "questionCode": "322",
+                        "text": "zítra:",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "941",
+                                "text": "TMW",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "940",
+                                "text": "TOM",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "942",
+                                "text": "TO",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "346",
+                        "questionCode": "354",
+                        "text": "proměnný oscilátor",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1038",
+                                "text": "BFO",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1037",
+                                "text": "XO",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1036",
+                                "text": "VFO",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "350",
+                        "questionCode": "358",
+                        "text": "telegrafie, netlumená vlna",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1050",
+                                "text": "PM",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1049",
+                                "text": "FM",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1048",
+                                "text": "CW",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "361",
+                        "questionCode": "369",
+                        "text": "dobrý den",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1082",
+                                "text": "GB",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1081",
+                                "text": "GA",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1083",
+                                "text": "GD",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "369",
+                        "questionCode": "377",
+                        "text": "koncový stupeň",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1105",
+                                "text": "PEP",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1107",
+                                "text": "PO",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1106",
+                                "text": "PA",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "384",
+                        "questionCode": "392",
+                        "text": "konec relace",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1151",
+                                "text": "AR",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1150",
+                                "text": "BK",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1152",
+                                "text": "R",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "389",
+                        "questionCode": "397",
+                        "text": "podmínky pro dálková spojení",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1165",
+                                "text": "CDX",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1167",
+                                "text": "CONDS",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1166",
+                                "text": "CONDX",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "406",
+                        "questionCode": "414",
+                        "text": "nic",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1216",
+                                "text": "NIL",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1218",
+                                "text": "NEXT",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1217",
+                                "text": "NEW",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "409",
+                        "questionCode": "418",
+                        "text": "brzy",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1225",
+                                "text": "SW",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1227",
+                                "text": "SK",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1226",
+                                "text": "SN",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "415",
+                        "questionCode": "425",
+                        "text": "metr",
+                        "topicId": "9",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1244",
+                                "text": "XMR",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1245",
+                                "text": "MT",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1243",
+                                "text": "MTR",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "444",
+                        "questionCode": "454",
+                        "text": "Francie",
+                        "topicId": "10",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1332",
+                                "text": "FX",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1330",
+                                "text": "AA-AZ",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1331",
+                                "text": "F, FD - FC",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "446",
+                        "questionCode": "456",
+                        "text": "Itálie",
+                        "topicId": "10",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1337",
+                                "text": "M",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1338",
+                                "text": "I,IA-IZ",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1336",
+                                "text": "TA-TZ",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "457",
+                        "questionCode": "467",
+                        "text": "Kanada",
+                        "topicId": "10",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1371",
+                                "text": "VA-VE, VO",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1369",
+                                "text": "VK",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1370",
+                                "text": "VU",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "458",
+                        "questionCode": "468",
+                        "text": "Litva",
+                        "topicId": "10",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1374",
+                                "text": "LY",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1373",
+                                "text": "LO-LW",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1372",
+                                "text": "LA-LN",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "461",
+                        "questionCode": "471",
+                        "text": "Japonsko",
+                        "topicId": "10",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1381",
+                                "text": "JT-JV",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1383",
+                                "text": "JA-JS",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1382",
+                                "text": "AA-AC",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "505",
+                        "questionCode": "515",
+                        "text": "Korsika",
+                        "topicId": "10",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1515",
+                                "text": "TF",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1514",
+                                "text": "TK",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1513",
+                                "text": "TA-TC",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "544",
+                        "questionCode": "555",
+                        "text": "Kostarika",
+                        "topicId": "10",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1630",
+                                "text": "TJ",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1631",
+                                "text": "TK",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1632",
+                                "text": "TI,TE",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "551",
+                        "questionCode": "562",
+                        "text": "Venezuela",
+                        "topicId": "10",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1653",
+                                "text": "YN",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1651",
+                                "text": "YK",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1652",
+                                "text": "YV-YY",
+                                "isCorrect": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "topicGroup": {
+                    "topicGroupId": "3",
+                    "name": "Elektrotechnika a radiotechnika",
+                    "topics": [
+                        {
+                            "topicId": "11",
+                            "name": "Elektrická, elektromagnetická a rádiová teorie",
+                            "topicSlug": "elektricka-a-radiova-teorie",
+                            "questionCount": 24,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "12",
+                            "name": "Součástky",
+                            "topicSlug": "soucastky",
+                            "questionCount": 24,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "13",
+                            "name": "Elektrické obvody",
+                            "topicSlug": "elektricke-obvody",
+                            "questionCount": 20,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "14",
+                            "name": "Rádiové přijímače",
+                            "topicSlug": "radiove-prijimace",
+                            "questionCount": 16,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "15",
+                            "name": "Rádiové vysílače",
+                            "topicSlug": "radiove-vysilace",
+                            "questionCount": 16,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "16",
+                            "name": "Antény a napájecí vedení",
+                            "topicSlug": "anteny-a-vedeni",
+                            "questionCount": 16,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "17",
+                            "name": "Šíření rádiových vln",
+                            "topicSlug": "sireni-radiovych-vln",
+                            "questionCount": 16,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "18",
+                            "name": "Měření elektrických veličin",
+                            "topicSlug": "mereni-velicin",
+                            "questionCount": 8,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "19",
+                            "name": "Rušení a odolnost proti rušení",
+                            "topicSlug": "ruseni",
+                            "questionCount": 8,
+                            "topicGroupId": "3"
+                        },
+                        {
+                            "topicId": "20",
+                            "name": "Bezpečnost elektrických zařízení",
+                            "topicSlug": "bezpecnost",
+                            "questionCount": 12,
+                            "topicGroupId": "3"
+                        }
+                    ]
+                },
+                "topicGroupQuestions": [
+                    {
+                        "questionId": "559",
+                        "questionCode": "570",
+                        "text": "Vlnová délka l, kmitočet f a rychlost šíření světla c spolu souvisí dle vztahu:",
+                        "topicId": "11",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1677",
+                                "text": "c = 2pf. l",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1675",
+                                "text": "c = f.l",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1676",
+                                "text": "c = f / l",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "562",
+                        "questionCode": "573",
+                        "text": "Nabitý akumulátor má kapacitu 4 Ah. Dodávat proud 400 mA vydrží:",
+                        "topicId": "11",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1685",
+                                "text": "10 hodin",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1686",
+                                "text": "1,6 hodiny",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1684",
+                                "text": "16 hodin",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "565",
+                        "questionCode": "576",
+                        "text": "Pokud mi protistanice sdělí, že můj signál má malý zdvih, znamená to, že:",
+                        "topicId": "11",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1694",
+                                "text": "mám malý výkon",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1693",
+                                "text": "výkon je dostatečný, ale modulace slabá",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1695",
+                                "text": "v modulaci jsou ořezány vyšší tóny, je zahuhňaná",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "569",
+                        "questionCode": "580",
+                        "text": "Který typ modulace mění kmitočet vysokofrekvenčního signálu v závislosti na přiváděné informaci:",
+                        "topicId": "11",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1705",
+                                "text": "kmitočtová modulace",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1706",
+                                "text": "amplitudová modulace",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1707",
+                                "text": "fázová modulace",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "591",
+                        "questionCode": "602",
+                        "text": "Sepnutý tyristor povede proud do okamžiku než:",
+                        "topicId": "12",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1773",
+                                "text": "odpojíme řídící elektrodu",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1772",
+                                "text": "napětí mezi anodou a katodou dosáhne maxima",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1771",
+                                "text": "napětí mezi anodou a katodou klesne na nulu",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "597",
+                        "questionCode": "608",
+                        "text": "Jednocestný usměrňovač vede během každého cyklu:",
+                        "topicId": "12",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1791",
+                                "text": "v průběhu celého cyklu",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1790",
+                                "text": "180 stupňů",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1789",
+                                "text": "polovinu doby cyklu",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "604",
+                        "questionCode": "615",
+                        "text": "Výsledný odpor R dvou paralelně zapojených odporů R1 a R2 je roven:",
+                        "topicId": "13",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1811",
+                                "text": "R = R1R2 / (R1 + R2)",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1812",
+                                "text": "R = 1/ R1 + 1/ R2",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1810",
+                                "text": "R = (R1 + R2) / R1R2",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "612",
+                        "questionCode": "623",
+                        "text": "Záznějový oscilátor (BFO) slouží:",
+                        "topicId": "13",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1836",
+                                "text": "k detekci SSB a CW signálů pomocí poměrového detektoru",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1835",
+                                "text": "k detekci FM signálů",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1834",
+                                "text": "ke kalibraci",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "613",
+                        "questionCode": "624",
+                        "text": "Krystalové harmonické oscilátory „overtone“ kmitají na:",
+                        "topicId": "13",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1839",
+                                "text": "na sudém harmonickém kmitočtu",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1837",
+                                "text": "na 3. respektive 5. harmonickém kmitočtu",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1838",
+                                "text": "na 2. harmonickém kmitočtu",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "618",
+                        "questionCode": "629",
+                        "text": "Šířka pásma laděného obvodu závisí na:",
+                        "topicId": "13",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1853",
+                                "text": "druhu provozu",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1852",
+                                "text": "přenášeném výkonu",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1854",
+                                "text": "kvalitě Q obvodu",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "625",
+                        "questionCode": "636",
+                        "text": "Superhet pracuje s mezifrekvenčním kmitočtem 455 kHz. Na jakém kmitočtu bude pracovat oscilátor přijímače, je-li přijímaný kmitočet 3,750 MHz?",
+                        "topicId": "14",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1873",
+                                "text": "2,840 MHz",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1875",
+                                "text": "4,205 MHz",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1874",
+                                "text": "4,660 MHz",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "626",
+                        "questionCode": "637",
+                        "text": "Který stupeň u superhetu z přijímaného signálu a místního oscilátoru vytváří mezifrekvenční signál?",
+                        "topicId": "14",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1877",
+                                "text": "směšovač",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1878",
+                                "text": "detektor",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1876",
+                                "text": "zesilovač",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "639",
+                        "questionCode": "650",
+                        "text": "Modulace SSB je odvozena od:",
+                        "topicId": "15",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1917",
+                                "text": "amplitudové modulace",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1916",
+                                "text": "fázové modulace",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1915",
+                                "text": "frekvenční modulace",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "645",
+                        "questionCode": "656",
+                        "text": "Nezbytnou částí telegrafního vysílače je obvod:",
+                        "topicId": "15",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1934",
+                                "text": "oscilátoru",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "1933",
+                                "text": "modulátoru",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1935",
+                                "text": "směšovače",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "659",
+                        "questionCode": "670",
+                        "text": "Zkracovací činitel u vf napájecích vedení vyjadřuje důsledek:",
+                        "topicId": "16",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "1976",
+                                "text": "rozdílu mezi symetrickými a nesymetrickými napáječi",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1977",
+                                "text": "vzniku stojatých vln na napáječi",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "1975",
+                                "text": "rozdílné rychlosti šíření elmag. vln na vedení a ve volném prostoru",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "681",
+                        "questionCode": "692",
+                        "text": "Jaká je průměrná výška ionosférické vrstvy E:",
+                        "topicId": "17",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "2041",
+                                "text": "60 km",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "2043",
+                                "text": "100 km",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "2042",
+                                "text": "1500 km",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "691",
+                        "questionCode": "702",
+                        "text": "Měříme-li odebíraný proud, měřící přístroj připojíme:",
+                        "topicId": "18",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "2073",
+                                "text": "paralelně ke spotřebiči",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "2072",
+                                "text": "paralelně ke svorkám zdroje",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "2071",
+                                "text": "do série mezi zdroj a spotřebič",
+                                "isCorrect": true
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "696",
+                        "questionCode": "707",
+                        "text": "Jakým způsobem může být minimalizována možnost rušení audiovizuálních přístrojů:",
+                        "topicId": "19",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "2086",
+                                "text": "zajištěním správného uzemnění všech částí zařízení",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "2088",
+                                "text": "používáním pouze CW provozu",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "2087",
+                                "text": "použitím tranzistorového vysílače",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "700",
+                        "questionCode": "711",
+                        "text": "Špatné přizpůsobení antény má vliv na:",
+                        "topicId": "19",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "2100",
+                                "text": "směrovost antény",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "2098",
+                                "text": "nežádoucí vyzařování z napáječe (souosého kabelu)",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "2099",
+                                "text": "vyzařovací diagram antény",
+                                "isCorrect": false
+                            }
+                        ]
+                    },
+                    {
+                        "questionId": "707",
+                        "questionCode": "718",
+                        "text": "Antény umístěné na střeše budov, nebo samostatně stojící, musí být vždy:",
+                        "topicId": "20",
+                        "points": 1,
+                        "answers": [
+                            {
+                                "answerId": "2121",
+                                "text": "opatřeny výstražným nátěrem (bílá,červená)",
+                                "isCorrect": false
+                            },
+                            {
+                                "answerId": "2119",
+                                "text": "řádně uzemněny",
+                                "isCorrect": true
+                            },
+                            {
+                                "answerId": "2120",
+                                "text": "opatřeny výstražným osvětlením",
+                                "isCorrect": false
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "licenceClass": "A"
+    },
+    "answers": {
+        "2": "5",
+        "3": "7",
+        "5": "14",
+        "6": "18",
+        "8": "22",
+        "14": "41",
+        "21": "62",
+        "26": "78",
+        "34": "101",
+        "37": "111",
+        "39": "115",
+        "43": "127",
+        "47": "141",
+        "50": "150",
+        "51": "151",
+        "53": "157",
+        "57": "170",
+        "70": "208",
+        "71": "213",
+        "80": "240",
+        "82": "245",
+        "83": "249",
+        "85": "255",
+        "87": "259",
+        "102": "305",
+        "106": "317",
+        "127": "380",
+        "131": "392",
+        "155": "465",
+        "174": "522",
+        "182": "546",
+        "190": "570",
+        "198": "594",
+        "221": "662",
+        "231": "691",
+        "240": "720",
+        "249": "747",
+        "258": "773",
+        "272": "816",
+        "274": "821",
+        "285": "854",
+        "295": "883",
+        "314": "942",
+        "346": "1038",
+        "350": "1050",
+        "361": "1081",
+        "369": "1106",
+        "384": "1151",
+        "389": "1167",
+        "406": "1216",
+        "409": "1227",
+        "415": "1243",
+        "444": "1331",
+        "446": "1336",
+        "457": "1369",
+        "458": "1374",
+        "461": "1383",
+        "505": "1513",
+        "544": "1632",
+        "551": "1653",
+        "559": "1677",
+        "562": "1684",
+        "565": "1693",
+        "569": "1706",
+        "591": "1773",
+        "597": "1790",
+        "604": "1811",
+        "612": "1835",
+        "613": "1837",
+        "618": "1852",
+        "625": "1875",
+        "626": "1876",
+        "639": "1916",
+        "645": "1933",
+        "659": "1977",
+        "681": "2042",
+        "691": "2072",
+        "696": "2088",
+        "700": "2100",
+        "707": "2121"
+    }
+}

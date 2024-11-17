@@ -1,0 +1,421 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Czech HAM Test Questions API'
+  description: 'API for serving tests and test questions for OK (Czech) HAM radio licence' 
+
+servers:
+  - url: https://hamotazky.cz
+
+paths:
+  /api/v1/topics:
+    parameters:
+      - $ref: '#/components/parameters/LicenceClassQueryParam'
+
+    get:
+      summary: Get topic list for selected licence class
+      tags: 
+        - api-v1
+      responses:
+        '200':
+          description: The topics list for `licenceClass`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicList'
+        400:
+          description: Invalid `licenceClass` provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/grouped-topics:
+    parameters:
+      - $ref: '#/components/parameters/LicenceClassQueryParam'
+    get:
+      summary: Get list of topic groups where each group contains it topic list for `licenceClass`
+      tags: 
+        - api-v1
+      responses:
+        '200':
+          description: The list of topic groups where each group contains it topic list for `licenceClass`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicGroupList'
+        400:
+          description: Invalid `licenceClass` provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/questions-by-topic-id:
+    parameters:
+      - $ref: '#/components/parameters/TopicIdQueryParam'
+      - $ref: '#/components/parameters/LicenceClassQueryParam'
+    get:
+      summary: Get all questions for selected topic and licence class
+      tags: 
+        - api-v1
+      responses:
+        '200':
+          description: All questions for selected topic and licence class
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionList'
+        400:
+          description: Invalid `topicId` or `licenceClass` supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'                             
+
+  /api/v1/get-test:
+    parameters:
+      - $ref: '#/components/parameters/LicenceClassQueryParam'
+    get:
+      summary: Prepare new test for licence class
+      tags: 
+        - api-v1
+      responses:
+        '200':
+          description: Test data for selected licence class
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Test'
+        400:
+          description: Invalid `licenceClass` supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+              
+  /api/v1/evaluate-test:
+    parameters:
+      - $ref: '#/components/parameters/LicenceClassQueryParam'
+    post:
+      summary: Evaluate filled test
+      tags: 
+        - api-v1
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FilledTest"
+            examples:
+              evaluationPayloadExample:
+                summary: Test evaluation payload example
+                externalValue: "/examples/evaluate-test-example.json"
+
+
+      responses:
+        '200':
+          description: Test evaluation data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestEvaluationResult'
+        400:
+          description: Invalid data supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+              
+
+components:
+  schemas:
+
+    Question:
+      type: object
+      required:
+        - id
+        - code
+        - text
+        - isCorrect
+        - points
+        - answers
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        text:
+          type: string
+        isCorrect:
+          type: boolean
+        points:
+          type: integer
+        answers: 
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+
+    QuestionList:
+      description: List of Questions
+      type: array
+      items:
+        $ref: "#/components/schemas/Question"
+
+    Answer:
+      type: object
+      required:
+        - id
+        - text
+        - defaultOrder
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        defaultOrder:
+          type: integer
+
+    Topic:
+      type: object
+      required:
+        - id
+        - name
+        - topicSlug
+        - questionCount
+        - topicGroupId
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        topicSlug:
+          type: string
+        questionCount:
+          type: integer
+        topicGroupId:
+          type: string
+
+    TopicList:
+      description: List of Topics
+      type: array
+      items:
+        $ref: "#/components/schemas/Topic"
+
+    TopicGroup:
+      type: object
+      required:
+        - id
+        - name
+        - topics
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        topics:
+          $ref: "#/components/schemas/TopicList"
+
+    TopicGroupList:
+      description: List of TopicGroups
+      type: array
+      items:
+        $ref: "#/components/schemas/TopicGroup"
+          
+
+    TopicId:
+      description: The unique ID of a topic
+      type: string
+
+    LicenceClass:
+      description: Licence class
+      type: string
+      enum:
+        - A
+        - N
+
+    QuestionsForTopicResponse:
+      description: Response for question by topic id endpoint
+      type: object
+      required:
+        - questions
+        - topic
+        - licenceClasses
+      properties:
+        questions:
+          $ref: "#/components/schemas/QuestionList"
+        topic:
+          $ref: "#/components/schemas/Topic"
+        licenceClasses:
+          type: array
+          items: 
+            $ref: "#/components/schemas/LicenceClass"
+
+    FilledTest:
+      description: Test with user answers
+      type: object
+      required:
+        - testContent
+        - answers
+      properties:
+        testContent:
+          $ref: "#/components/schemas/Test"
+        answers:
+          $ref: "#/components/schemas/UserTestAnswers"
+
+    Test:
+      description: Test data
+      type: object
+      required:
+        - testParts
+        - licenceClass
+      properties:
+        testParts:
+          $ref: "#/components/schemas/TestPart"
+        licenceClass:
+          $ref: "#/components/schemas/LicenceClass"
+
+    TestPart:
+      description: Test part
+      type: object
+      required:
+        - topicGroup
+        - topicGroupQuestions
+      properties:
+        topicGroup:
+          $ref: "#/components/schemas/TopicGroup"
+        topicGroupQuestions:
+          $ref: "#/components/schemas/QuestionList"
+
+    UserTestAnswers:
+      description: User test answers map
+      type: object
+      additionalProperties:
+        type: string
+
+    TestEvaluationResult:
+      description: Test answers evaluation result wrapper
+      type: object
+      required:
+        - licenceClass
+        - answers
+        - test
+        - evaluationResult
+      properties:
+        licenceClass:
+          $ref: "#/components/schemas/LicenceClass"
+        answers:
+          $ref: "#/components/schemas/UserTestAnswers"
+        test:
+          $ref: "#/components/schemas/Test"
+        evaluationResult:
+          $ref: "#/components/schemas/TestEvaluation"
+
+    TestEvaluation:
+      description: Test evaluation
+      type: object
+      required:
+        - resultsByTopicGroup
+        - totalCorrectAnswers
+        - totalWrongAnswers
+        - passedOverall
+      properties:
+        passedOverall:
+          type: boolean
+        totalWrongAnswers:
+          type: integer
+        totalCorrectAnswers:
+          type: integer
+        resultsByTopicGroup:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/TestEvaluationTopicGroupResult"
+
+    TestEvaluationTopicGroupResult:
+      description: Evaluated topic group from the test
+      type: object
+      required:
+        - correctAnswersCount
+        - wrongAnswersCount
+        - groupQuestionCount
+        - minimumPointsToPass
+        - passed
+        - correctAnswersPercentage
+      properties:
+        correctAnswersCount:
+          type: integer
+        wrongAnswersCount:
+          type: integer
+        groupQuestionCount:
+          type: integer
+        minimumPointsToPass:
+          type: integer
+        passed:
+          type: boolean
+        correctAnswersPercentage:
+          type: number
+
+
+    Error:
+      type: object
+      required:
+        - message
+        - status
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+        status:
+          description: HTTP status code
+          type: integer
+
+
+  parameters:
+
+    LicenceClassQueryParam:
+      name: licenceClass
+      description: Selected licence class
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/LicenceClass'
+
+    TopicIdQueryParam:
+      name: topicId
+      description: Selected topic ID
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/TopicId'
+
