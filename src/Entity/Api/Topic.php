@@ -16,7 +16,7 @@ class Topic {
      * @param string  $name
      * @param string  $topicSlug
      * @param integer $questionCount
-     * @param string $topicGroupId
+     * @param string  $topicGroupId
      */
     public function __construct(
         string $id,

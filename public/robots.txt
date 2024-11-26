@@ -1,0 +1,7 @@
+User-agent: *
+
+Disallow: /harec/test
+Disallow: /novice/test
+Disallow: /download
+
+Sitemap: https://hamotazky.cz/sitemap.xml
