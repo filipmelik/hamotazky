@@ -72,7 +72,7 @@ HAM Otázky z kategorie {{ topicName }}
                         <p class="mt-1 mb-3 fs-5 ms-md-3">{{ q.text }}</p>
                         <ul class="list-group mx-md-3 mb-3">
                             {% for a in q.answers %}
-                                <li class="py-3 list-group-item list-group-item-secondary js-answer-row" data-is-correct="{{ a.isCorrect ? '1' : '0' }}" data-question-id="{{ q.questionId }}">
+                                <li class="py-3 list-group-item list-group-item-secondary selectable-answer-row js-answer-row" data-is-correct="{{ a.isCorrect ? '1' : '0' }}" data-question-id="{{ q.questionId }}">
                                     <div class="d-flex align-items-center">
                                         <span class="me-3 js-question-bullet">🔵</span>
                                         <span class="fs-6">{{ a.text }}</span>
