@@ -88,7 +88,7 @@ class DataSourceV1 {
             FROM Question q
             JOIN Topic2Question t2q ON (q.`questionId` == t2q.`questionId`)
             WHERE q.`questionId` IN (?)
-            ORDER BY CAST(q.`questionCode` AS INTEGER) ASC
+            ORDER BY t2q.`topicId`, CAST(q.`questionCode` AS INTEGER) ASC
         ';
         $query = $this->db->executeQuery($sql, [$questionIds], [ArrayParameterType::STRING]);
         $dbQuestionsData = $query->fetchAllAssociative();
