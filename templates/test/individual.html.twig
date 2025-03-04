@@ -8,8 +8,8 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
   {{ parent() }}
   <script>let testContent = '{{ testJson|raw }}'</script>
   <script>let testEvaluationUrl = '{{ path(licenceClassStringLowerCase~'-individual-test-result') }}'</script>   
-  <script src="/assets/js/testStorage.js"></script>
-  <script src="/assets/js/individualTest.js"></script>
+  <script src="{{ asset('assets/js/testStorage.js') }}"></script>
+  <script src="{{ asset('assets/js/individualTest.js') }}"></script>
 {% endblock %}
 
 {% block body %}
