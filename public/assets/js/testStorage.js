@@ -22,6 +22,10 @@ var TestStorage = {
     
     saveTest: function(testContent) {
         localStorage.setItem(this._testKey, testContent);
-    }
+    },
+
+    loadTest: function() {
+        return localStorage.getItem(this._testKey);
+    },
 
 }

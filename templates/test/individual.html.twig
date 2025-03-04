@@ -6,8 +6,12 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
 
 {% block javascripts %}
   {{ parent() }}
-  <script>let testContent = '{{ testJson|raw }}'</script>
-  <script>let testEvaluationUrl = '{{ path(licenceClassStringLowerCase~'-individual-test-result') }}'</script>   
+  <script>
+      var testContent = '{{ testJson|raw }}';
+      let testEvaluationUrl = '{{ path(licenceClassStringLowerCase~'-individual-test-result') }}';
+      let loadTestToResumeUrl = '{{ path('resume-existing-test') }}';
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="{{ asset('assets/js/testStorage.js') }}"></script>
   <script src="{{ asset('assets/js/individualTest.js') }}"></script>
 {% endblock %}
@@ -52,54 +56,32 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
   </nav>
 </header>
 
-    <div class="px-4 py-3 text-center border-bottom bg-body-tertiary my-box-shadow-2">
-        <h1 class="fs-1">Test pro třídu {{ licenceClass }} ({{ licenceClassString }})</h1>
-        <p class="text-muted mb-0">Cvičný test dle stejných kritérií jako u opravdové zkoušky</p>
+<!-- Resume Existing Test Modal -->
+<div class="modal fade" id="resumeExistingTestModal" tabindex="-1" aria-labelledby="resumeExistingTestModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="resumeExistingTestModalLabel">Upozornění</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zavřít"></button>
+      </div>
+      <div class="modal-body">
+        Na tomto zařízení máš rozpracovaný test z minula. Můžeš v něm pokračovat, nebo začít nový test.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="start-new-test-button" data-bs-dismiss="modal">Nový test</button>
+        <button type="button" class="btn btn-primary" id="resume-test-button">
+          Načíst rozpracovaný test
+          <span id="resume-test-modal-spinner" class="spinner-border spinner-border-sm js-hidden" role="status" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
+  </div>
+</div>
 
-    <div class="container px-3 py-2">
+<div class="js-test-content-html">
+    {{ include ('test/parts/testContent.html.twig') }}
+</div>
 
-        <div class="centered-container mt-2">
-            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="{{ url('homepage') }}">Domů</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Test</li>
-                </ol>
-            </nav>
-        </div>
-
-        {% for groupData in test.testParts %}
-          <div class="centered-container mt-4 pb-0">
-            <span class="fs-2">Část {{ loop.index }}: {{ groupData.topicGroup.name }}</span>
-          </div>
-
-          <div class="row py-2 row-cols-1">
-              <div class="col">
-                  {% for q in groupData.topicGroupQuestions %}
-                      <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-question-box js-question-box-{{ q.questionId }}" data-question-id="{{ q.questionId }}">
-                          <p class="mt-1 mb-3 fs-5 ms-md-3">{{ q.text }}</p>
-                          <ul class="list-group mx-md-3 mb-3">
-                              {% for a in q.answers %}
-                                  <li class="py-3 list-group-item list-group-item-secondary selectable-answer-row js-answer-row js-answer-row-{{ a.answerId }}" data-question-id="{{ q.questionId }}" data-answer-id="{{ a.answerId }}">
-                                      <div class="d-flex align-items-center">
-                                          <span class="me-3 js-question-bullet">🔵</span>
-                                          <span class="fs-6">{{ a.text }}</span>
-                                      </div>
-                                  </li>
-                              {% endfor %} 
-                          </ul>
-                      </div>
-                  {% endfor %}    
-              </div>
-          </div>
-        {% endfor %} 
-
-        <div class="d-grid gap-2 centered-container px-0 py-0">
-          <button class="btn btn-lg btn-primary mb-4 js-evaluate-button" type="button">Vyhodnotit test</button>
-        </div>
-
-    </div>
-
-    {{ include ('parts/footer.html.twig') }}
+{{ include ('parts/footer.html.twig') }}
 
 {% endblock %}

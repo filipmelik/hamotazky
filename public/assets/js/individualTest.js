@@ -1,38 +1,53 @@
 document.addEventListener("DOMContentLoaded", function() {
     
+    const resumeTestModal = new bootstrap.Modal(document.getElementById('resumeExistingTestModal'));
+    
     if (TestStorage.testInProgressExists()) {
-        loadTestInProgress();
+        resumeTestModal.show();
+
+        document.getElementById('resume-test-button').addEventListener('click', () => {
+            loadTestInProgress();
+        });
+        document.getElementById('start-new-test-button').addEventListener('click', () => {
+            TestStorage.clearTestAndProgress();
+            TestStorage.saveTest(testContent);
+        });
     } else {
         TestStorage.clearTestAndProgress();
         TestStorage.saveTest(testContent);
     }
 
-    document.querySelectorAll('.js-answer-row').forEach(answerRow => {
-        answerRow.addEventListener('click', (e) => {
-            e.preventDefault();
-            let questionId = answerRow.dataset.questionId;
-            let answerId = answerRow.dataset.answerId;
-            selectAnswerForQuestionId(questionId, answerId);
-            saveCurrentTestProgress()
-        })
-    });
+    beginTest();
 
-    document.querySelector('.js-evaluate-button').addEventListener('click', () => {
-        let firstUnansweredQuestionId = getIdOfFirstUnansweredQuestion();
+    function beginTest() {
+        document.querySelectorAll('.js-answer-row').forEach(answerRow => {
+            answerRow.addEventListener('click', (e) => {
+                e.preventDefault();
+                let questionId = answerRow.dataset.questionId;
+                let answerId = answerRow.dataset.answerId;
+                selectAnswerForQuestionId(questionId, answerId);
+                saveCurrentTestProgress();
+                TestStorage.saveTest(testContent);
+            })
+        });
 
-        if (firstUnansweredQuestionId !== null) {
-            // user did not answer all questions
-            unansweredQuestionElement = document.querySelector(`[data-question-id="${firstUnansweredQuestionId}"]`)
-            alert("Všechny otázky v testu nebyly zodpovězeny. Přesuneme vás nyní k nezodpovězené otázce.");
-            unansweredQuestionElement.scrollIntoView();
-        } else {
-            dataToPost = {
-                test: JSON.parse(testContent),
-                answers: collectTestAnswers(),
+        document.querySelector('.js-evaluate-button').addEventListener('click', () => {
+            let firstUnansweredQuestionId = getIdOfFirstUnansweredQuestion();
+
+            if (firstUnansweredQuestionId !== null) {
+                // user did not answer all questions
+                let unansweredQuestionElement = document.querySelector(`[data-question-id="${firstUnansweredQuestionId}"]`)
+                alert("Všechny otázky v testu nebyly zodpovězeny. Přesuneme vás nyní k nezodpovězené otázce.");
+                unansweredQuestionElement.scrollIntoView();
+            } else {
+                dataToPost = {
+                    test: JSON.parse(testContent),
+                    answers: collectTestAnswers(),
+                }
+                postData(testEvaluationUrl, dataToPost);
             }
-            postData(testEvaluationUrl, dataToPost);
-        }
-    });
+        });
+    }
 
     function postData(path, params) { 
         const hidden_form = document.createElement('form'); 
@@ -70,6 +85,22 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         return firstUnansweredQuestionId;
+    }
+
+    function getIdOfLastAnsweredQuestion() {
+        let lastAnsweredQuestionId = null;
+
+        [...document.querySelectorAll('.js-question-box')].every(function(questionBoxElement, index) {
+            let questionId = questionBoxElement.dataset.questionId;
+            let selectedAnswerId = questionBoxElement.dataset.selectedAnswerId;
+
+            if (selectedAnswerId) {
+                lastAnsweredQuestionId = questionId;
+            }
+            return true;
+        });
+
+        return lastAnsweredQuestionId;
     }
 
     function collectTestAnswers() {
@@ -135,14 +166,60 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function loadTestInProgress() {
-        let progress = TestStorage.loadTestProgress();
+        let resumeTestButton = document.getElementById('resume-test-button')
+        let resumeTestSpinner = document.getElementById('resume-test-modal-spinner')
 
-        for (var questionId in progress) {            
-            if (questionExistsInTest(questionId)) {
-                var answerId = progress[questionId];
-                selectAnswerForQuestionId(questionId, answerId);
+        let loadedTestData = TestStorage.loadTest();
+        let loadedTestDataB64Encoded = Base64.encode(loadedTestData);
+
+        resumeTestButton.setAttribute("disabled", true);
+        resumeTestSpinner.classList.remove("js-hidden");
+
+        let formData = new FormData();
+        formData.set("test", loadedTestDataB64Encoded);
+
+        let request = $.ajax({
+            type: 'POST',
+            url: loadTestToResumeUrl,
+            data: formData,
+            processData: false,
+            contentType: false
+        });
+        request.done(function (data, textStatus, jqXHR) {
+            // replace 'default' test with existing/resumed test
+            let testContentElement = document.querySelector('.js-test-content-html');
+            testContentElement.innerHTML = data.responseHtml;
+            
+            // update the 'global' testContent var with resumed test data
+            testContent = JSON.stringify(data.rawTestContent);
+
+            // select previously answered questions
+            let progress = TestStorage.loadTestProgress();
+            for (var questionId in progress) {            
+                if (questionExistsInTest(questionId)) {
+                    var answerId = progress[questionId];
+                    selectAnswerForQuestionId(questionId, answerId);
+                }
             }
-        }
+
+            resumeTestModal.hide();
+
+            // scroll to last answered question
+            let lastAnsweredQuestionId = getIdOfLastAnsweredQuestion();
+            if (lastAnsweredQuestionId !== null) {
+                let lastAnsweredQuestionElement = document.querySelector(`[data-question-id="${lastAnsweredQuestionId}"]`)
+                lastAnsweredQuestionElement.scrollIntoView();
+            }
+
+            beginTest();
+        });
+        request.fail(function (data, textStatus, errorThrown) {
+            // noop
+        });
+        request.always(function (data, textStatus, jqXHR) {
+            resumeTestButton.removeAttribute("disabled");
+            resumeTestSpinner.classList.add("js-hidden");
+        });
     }
 
 });
