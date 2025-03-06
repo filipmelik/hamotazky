@@ -6,7 +6,7 @@ HAM Otázky z kategorie {{ topicName }}
 
 {% block javascripts %}
   {{ parent() }}
-  <script src="/assets/js/practice.js"></script>        
+  <script src="{{ asset('assets/js/practice.js') }}"></script>     
 {% endblock %}
 
 {% block body %}

@@ -18,4 +18,34 @@ class LicenceClass {
         self::CLASS_N => self::CLASS_NAME_N,
     ];
 
+    /**
+     * Validate input licenceClass
+     *
+     * @param mixed $licenceClass
+     * @return string
+     */
+    static function validateLicenceClass(mixed $licenceClass): string
+    {
+      if ($licenceClass === null) {
+        throw new \InvalidArgumentException(
+          sprintf(
+            "'licenceClass' parameter not provided. please supply one of those values: [%s]", 
+            implode(', ', LicenceClass::ALL),
+          )
+        );
+      }
+
+      $licenceClass = strtoupper($licenceClass);
+      if (!in_array($licenceClass, LicenceClass::ALL)) {
+        throw new \InvalidArgumentException(
+          sprintf(
+            "'licenceClass' parameter is invalid. please supply one of those values: [%s]", 
+            implode(', ', LicenceClass::ALL),
+          )
+        );
+      }
+
+      return $licenceClass;
+    }
+
 }

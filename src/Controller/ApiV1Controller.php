@@ -8,6 +8,7 @@ use App\Entity\LicenceClass;
 use App\Entity\Api\QuestionsForTopicResponse;
 use App\Logic\IndividualTestComposer;
 use App\Logic\IndividualTestEvaluator;
+use App\Utils\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,20 +18,19 @@ use Symfony\Component\HttpFoundation\Request;
 class ApiV1Controller extends AbstractController
 {
 
-    const JSON_CONTENT_TYPE = 'application/json';
-
-
     #[Route('/api/v1/topics', name: 'api-v1-get-topics')]
     public function getAllTopics(Request $request, DataSourceV1 $dataSource): Response
     {
       try {
         $licenceClassesFilter = $this->prepareLicenceClassesFilter($request);
         $topics = $dataSource->getAllTopics($licenceClassesFilter);
-        $response = $this->prepareOkJsonResponse(json_encode($topics));
+        $response = JsonResponse::prepareOkJsonResponse(json_encode($topics), true);
         $response->send();
         return $response;
       } catch (\InvalidArgumentException $e) {
-        $response = $this->prepareErrorJsonResponse($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        $response = JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, true
+        );
         $response->send();
         return $response;
       }
@@ -42,11 +42,13 @@ class ApiV1Controller extends AbstractController
       try {
         $licenceClassesFilter = $this->prepareLicenceClassesFilter($request);
         $topics = $dataSource->getGroupedTopics($licenceClassesFilter);
-        $response = $this->prepareOkJsonResponse(json_encode($topics));
+        $response = JsonResponse::prepareOkJsonResponse(json_encode($topics), true);
         $response->send();
         return $response;
       } catch (\InvalidArgumentException $e) {
-        $response = $this->prepareErrorJsonResponse($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        $response = JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, true
+        );
         $response->send();
         return $response;
       }
@@ -72,12 +74,14 @@ class ApiV1Controller extends AbstractController
           $licenceClasses,
         );
         
-        $response = $this->prepareOkJsonResponse(json_encode($payload));
+        $response = JsonResponse::prepareOkJsonResponse(json_encode($payload), true);
         $response->send();
     
         return $response;
       } catch (\InvalidArgumentException $e) {
-        $response = $this->prepareErrorJsonResponse($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        $response = JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, true
+        );
         $response->send();
         return $response;
       }
@@ -88,13 +92,15 @@ class ApiV1Controller extends AbstractController
     {
       try {
         $rawLicenceClass = $request->query->get('licenceClass');
-        $licenceClass = $this->validateLicenceClass($rawLicenceClass);
+        $licenceClass = LicenceClass::validateLicenceClass($rawLicenceClass);
         $test = $testComposer->prepareTest($licenceClass);
-        $response = $this->prepareOkJsonResponse(json_encode($test));
+        $response = JsonResponse::prepareOkJsonResponse(json_encode($test), true);
         $response->send();
         return $response;
       } catch (\InvalidArgumentException $e) {
-        $response = $this->prepareErrorJsonResponse($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        $response = JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, true
+        );
         $response->send();
         return $response;
       }
@@ -105,7 +111,7 @@ class ApiV1Controller extends AbstractController
     {
       if ($request->getMethod() === 'OPTIONS') {
         // handle CORS preflight
-        $response = $this->prepareOkJsonResponse(null);
+        $response = JsonResponse::prepareOkJsonResponse(null, true);
         $response->send();
         return $response;
       }
@@ -116,53 +122,18 @@ class ApiV1Controller extends AbstractController
         $test = $payload['test'];
 
         $result = $testEvaluator->evaluateTest($answers, $test);
-        $response = $this->prepareOkJsonResponse(json_encode($result));
+        $response = JsonResponse::prepareOkJsonResponse(json_encode($result), true);
         $response->send();
         return $response;
 
       } catch (\InvalidArgumentException $e) {
-        $response = $this->prepareErrorJsonResponse($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        $response = JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, true
+        );
         $response->send();
         return $response;
       }
     }
-
-    /**
-     * @param string $data
-     * @return Response
-     */
-    private function prepareOkJsonResponse(?string $jsonData): Response {
-      $response = new Response();
-      $response = $this->setCorsHeaders($response);
-      $response->headers->set('Content-Type', self::JSON_CONTENT_TYPE);
-      $response->setStatusCode(Response::HTTP_OK);
-      if ($jsonData !== null) {
-        $response->setContent($jsonData);
-      }
-
-      return $response;
-    }
-
-    /**
-     * @param string $message
-     * @param integer $statusCode
-     * @return Response
-     */
-    private function prepareErrorJsonResponse(string $message, int $statusCode): Response {
-      $response = new Response();
-      $response = $this->setCorsHeaders($response);
-      $response->headers->set('Content-Type', self::JSON_CONTENT_TYPE);
-      $response->setContent(
-        json_encode([
-          'error'  => $message,
-          'status' => $statusCode,
-        ])
-      );
-      $response->setStatusCode($statusCode);
-
-      return $response;
-    }
-
 
     /**
      * Validate topic ID
@@ -223,51 +194,6 @@ class ApiV1Controller extends AbstractController
       }
 
       return $normalizedLicenceClasses;
-    }
-
-    /**
-     * Validate input licenceClass
-     *
-     * @param mixed $licenceClass
-     * @return string
-     */
-    private function validateLicenceClass(mixed $licenceClass): string
-    {
-      if ($licenceClass === null) {
-        throw new \InvalidArgumentException(
-          sprintf(
-            "'licenceClass' parameter not provided. please supply one of those values: [%s]", 
-            implode(', ', LicenceClass::ALL),
-          )
-        );
-      }
-
-      $licenceClass = strtoupper($licenceClass);
-      if (!in_array($licenceClass, LicenceClass::ALL)) {
-        throw new \InvalidArgumentException(
-          sprintf(
-            "'licenceClass' parameter is invalid. please supply one of those values: [%s]", 
-            implode(', ', LicenceClass::ALL),
-          )
-        );
-      }
-
-      return $licenceClass;
-    }
-
-    /**
-     * Set CORS headers to request repsonse so the API endpoints can be called out of its original domain
-     *
-     * @param Response $response
-     * @return Response modified Response
-     */
-    private function setCorsHeaders(Response $response): Response
-    {
-      $response->headers->set('Access-Control-Allow-Origin', '*');
-      $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-      $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
-
-      return $response;
     }
 
 }

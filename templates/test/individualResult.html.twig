@@ -6,8 +6,8 @@ Výsledek testu z HAM otázek pro operátorskou třídu {{ licenceClass }}
 
 {% block javascripts %}
   {{ parent() }}
-  <script src="/assets/js/testStorage.js"></script>
-  <script src="/assets/js/individualTestResult.js"></script>
+  <script src="{{ asset('assets/js/testStorage.js') }}"></script>
+  <script src="{{ asset('assets/js/individualTestResult.js') }}"></script>
 {% endblock %}
 
 {% block body %}

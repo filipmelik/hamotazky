@@ -6,11 +6,11 @@ namespace App\Controller;
 use App\Logic\IndividualTestComposer;
 use App\Logic\IndividualTestEvaluator;
 use App\Entity\LicenceClass;
+use App\Utils\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class IndividualTestController extends AbstractController
@@ -26,6 +26,12 @@ class IndividualTestController extends AbstractController
     public function noviceTest(IndividualTestComposer $testComposer): Response
     {      
       return $this->renderTestPage($testComposer, LicenceClass::CLASS_N);
+    }
+
+    #[Route('/test/resume', name: 'resume-existing-test', methods: ['POST'])]
+    public function resumeExistingTest(Request $request): Response
+    {      
+      return $this->resumeTest($request);
     }
 
     #[Route('/harec/test/vyhodnoceni', name: 'harec-individual-test-result', methods: ['POST'])]
@@ -61,6 +67,37 @@ class IndividualTestController extends AbstractController
     }
 
     /**
+     * @param Request $request
+     * 
+     * @return Response
+     */
+    private function resumeTest(Request $request): Response {
+      try {
+        $test = json_decode(base64_decode($request->get('test')), true);
+        $licenceClass = $test['licenceClass'];
+
+        $responseHtml = $this->renderView('test/parts/testContent.html.twig', [
+          'licenceClass'       => $licenceClass,
+          'licenceClassString' => LicenceClass::CLASS_TO_CLASS_NAME[$licenceClass],
+          'test'               => $test,
+        ]);
+        
+        $responsePayload = [
+          'responseHtml' => $responseHtml,
+          'rawTestContent' => $test,
+        ];
+
+        return JsonResponse::prepareOkJsonResponse(json_encode($responsePayload), false);
+      } catch (\InvalidArgumentException $e) {
+        $response = JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, false
+        );
+        $response->send();
+        return $response;
+      }
+    }
+
+    /**
      * @param IndividualTestEvaluator $testEvaluator
      * @param Request $request
      * 
@@ -84,16 +121,14 @@ class IndividualTestController extends AbstractController
           'userAnswers'        => $result->answers,
           'evaluation'         => $result->result,
         ]);
+        return $response;
       } catch (\InvalidArgumentException $e) {
-        $response = new JsonResponse(
-          [
-            'error' => $e->getMessage(),
-          ], 
-          Response::HTTP_BAD_REQUEST
+        $response = JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, false
         );
+        $response->send();
+        return $response;
       }
-
-      return $response;
     }
 
 }

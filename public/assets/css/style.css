@@ -54,3 +54,7 @@
 .selectable-answer-row {
     cursor: pointer;
 }
+
+.js-hidden {
+    display: none;
+}
