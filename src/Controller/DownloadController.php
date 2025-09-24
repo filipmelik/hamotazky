@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\LicenceClass;
 use App\Logic\DatasourceJsonExport;
 use App\Utils\Utils;
+use App\Utils\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,17 +31,25 @@ class DownloadController extends AbstractController
         DatasourceJsonExport $dataSourceJsonExport,
     ): Response
     {
-      $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
-      $licenceClasses = empty($licenceClassesFilter) ? LicenceClass::ALL : $licenceClassesFilter;
-      
-      $json = $dataSourceJsonExport->getJson($licenceClasses);
-      $outFileName = sprintf('hamtest-%s.json', implode('_', $licenceClasses));
+      try {
+        $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
+        $licenceClasses = empty($licenceClassesFilter) ? LicenceClass::ALL : $licenceClassesFilter;
+        
+        $json = $dataSourceJsonExport->getJson($licenceClasses);
+        $outFileName = sprintf('hamtest-%s.json', implode('_', $licenceClasses));
 
-      $response = new Response($json);
-      $response->headers->set('Content-Encoding', 'UTF-8');
-      $response->headers->set('Content-Type', 'application/json');
-      $response->headers->set('Content-Disposition', "attachment; filename={$outFileName}");
+        $response = new Response($json);
+        $response->headers->set('Content-Encoding', 'UTF-8');
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Content-Disposition', "attachment; filename={$outFileName}");
 
-      return $response;
+        return $response;
+      } catch (\InvalidArgumentException $e) {
+        $response = JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, true
+        );
+        $response->send();
+        return $response;
+      }
     }
 }
