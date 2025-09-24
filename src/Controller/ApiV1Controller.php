@@ -9,6 +9,7 @@ use App\Entity\Api\QuestionsForTopicResponse;
 use App\Logic\IndividualTestComposer;
 use App\Logic\IndividualTestEvaluator;
 use App\Utils\JsonResponse;
+use App\Utils\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class ApiV1Controller extends AbstractController
     public function getAllTopics(Request $request, DataSourceV1 $dataSource): Response
     {
       try {
-        $licenceClassesFilter = $this->prepareLicenceClassesFilter($request);
+        $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
         $topics = $dataSource->getAllTopics($licenceClassesFilter);
         $response = JsonResponse::prepareOkJsonResponse(json_encode($topics), true);
         $response->send();
@@ -40,7 +41,7 @@ class ApiV1Controller extends AbstractController
     public function getGroupedTopics(Request $request, DataSourceV1 $dataSource): Response
     {
       try {
-        $licenceClassesFilter = $this->prepareLicenceClassesFilter($request);
+        $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
         $topics = $dataSource->getGroupedTopics($licenceClassesFilter);
         $response = JsonResponse::prepareOkJsonResponse(json_encode($topics), true);
         $response->send();
@@ -60,7 +61,7 @@ class ApiV1Controller extends AbstractController
       try {
         $rawTopicId = $request->query->get('topicId');
         $topicId = $this->validateTopicId($rawTopicId);
-        $licenceClassesFilter = $this->prepareLicenceClassesFilter($request);
+        $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
         $questionIds = $dataSource->getQuestionIdsFromTopic($topicId, $licenceClassesFilter);
         $questions = $dataSource->getQuestionsByIds($questionIds);
         $topic = $dataSource->getTopic($topicId);
@@ -162,38 +163,6 @@ class ApiV1Controller extends AbstractController
       }
 
       return $topicId; 
-    }
-    
-    /**
-     * Validate and prepare licenceClass filter array
-     *
-     * @param Request $request
-     * @return array|null
-     */
-    private function prepareLicenceClassesFilter(Request $request): ?array
-    {
-      $licenceClassFilter = $request->query->get('licenceClass');
-      if ($licenceClassFilter === null) {
-        return null;
-      }
-
-      $values = explode(',', $licenceClassFilter);
-      $normalizedLicenceClasses = [];
-      foreach ($values as $v) {
-        $normalized = strtoupper($v);
-        if (!in_array($normalized, LicenceClass::ALL)) {
-          throw new \InvalidArgumentException(
-            sprintf(
-              "'licenceClass' parameter is invalid. allowed values are only: [%s]", 
-              implode(', ', LicenceClass::ALL),
-            )
-          );
-        }
-        $normalizedLicenceClasses[] = $normalized;
-        $normalizedLicenceClasses = array_unique($normalizedLicenceClasses);
-      }
-
-      return $normalizedLicenceClasses;
     }
 
 }
