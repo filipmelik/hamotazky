@@ -123,7 +123,7 @@ class DataSourceV1 {
      * @param array|null $licenceClassFilter
      * @return string[]
      */
-    public function getQuestionIdsFromTopic(string $topicId, array $licenceClassFilter = null): array
+    public function getQuestionIdsFromTopic(string $topicId, ?array $licenceClassFilter = null): array
     {
         $questionIds = [];
 
