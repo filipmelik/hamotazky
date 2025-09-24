@@ -16,12 +16,14 @@ class DatasourceJsonExport {
 
     /**
      * Prepare datasource JSON export
-     *
+     * 
+     * @param array $licenceClasses Licence class filter
+     * 
      * @return string
      */
-    public function getJson(): string 
+    public function getJson(array $licenceClasses): string 
     {
-        $allQuestionIds = $this->dataSource->getAllQuestionIds();
+        $allQuestionIds = $this->dataSource->getAllQuestionIds($licenceClasses);
         $questions = $this->dataSource->getQuestionsByIds($allQuestionIds, false);
         $groupedTopics = $this->dataSource->getGroupedTopics();
 
