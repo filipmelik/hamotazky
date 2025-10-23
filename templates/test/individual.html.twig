@@ -7,7 +7,7 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
 {% block javascripts %}
   {{ parent() }}
   <script>
-      var testContent = '{{ testJson|raw }}';
+      var testContent = '{{ testJson|escape('js') }}';
       let testEvaluationUrl = '{{ path(licenceClassStringLowerCase~'-individual-test-result') }}';
       let loadTestToResumeUrl = '{{ path('resume-existing-test') }}';
   </script>
