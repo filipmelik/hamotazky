@@ -10,7 +10,7 @@ servers:
 paths:
   /api/v1/topics:
     parameters:
-      - $ref: '#/components/parameters/LicenceClassQueryParam'
+      - $ref: '#/components/parameters/OptionalLicenceClassQueryParam'
 
     get:
       summary: Get topic list for selected licence class
@@ -38,7 +38,7 @@ paths:
 
   /api/v1/grouped-topics:
     parameters:
-      - $ref: '#/components/parameters/LicenceClassQueryParam'
+      - $ref: '#/components/parameters/OptionalLicenceClassQueryParam'
     get:
       summary: Get list of topic groups where each group contains it topic list for `licenceClass`
       tags: 
@@ -66,20 +66,26 @@ paths:
   /api/v1/questions-by-topic-id:
     parameters:
       - $ref: '#/components/parameters/TopicIdQueryParam'
-      - $ref: '#/components/parameters/LicenceClassQueryParam'
+      - $ref: '#/components/parameters/OptionalLicenceClassQueryParam'
     get:
       summary: Get all questions for selected topic and licence class
       tags: 
         - api-v1
       responses:
         '200':
-          description: All questions for selected topic and licence class
+          description: All questions for selected topic and licence class, together with the topic and used licence classes
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuestionList'
+                $ref: '#/components/schemas/QuestionsForTopicResponse'
         400:
           description: Invalid `topicId` or `licenceClass` supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Topic with `topicId` does not exist
           content:
             application/json:
               schema:
@@ -183,8 +189,6 @@ paths:
                 $ref: '#/components/schemas/Error'  
               
   /api/v1/evaluate-test:
-    parameters:
-      - $ref: '#/components/parameters/LicenceClassQueryParam'
     post:
       summary: Evaluate filled test
       tags: 
@@ -229,27 +233,28 @@ components:
     Question:
       type: object
       required:
-        - id
-        - code
+        - questionId
+        - questionCode
         - text
-        - isCorrect
         - points
         - answers
+        - topicId
       properties:
-        id:
+        questionId:
           type: string
-        code:
+        questionCode:
           type: string
         text:
           type: string
-        isCorrect:
-          type: boolean
         points:
           type: integer
         answers: 
+          description: Answers in random order
           type: array
           items:
             $ref: '#/components/schemas/Answer'
+        topicId:
+          $ref: '#/components/schemas/TopicId'
 
     QuestionList:
       description: List of Questions
@@ -260,28 +265,28 @@ components:
     Answer:
       type: object
       required:
-        - id
+        - answerId
         - text
-        - defaultOrder
+        - isCorrect
       properties:
-        id:
+        answerId:
           type: string
         text:
           type: string
-        defaultOrder:
-          type: integer
+        isCorrect:
+          type: boolean
 
     Topic:
       type: object
       required:
-        - id
+        - topicId
         - name
         - topicSlug
         - questionCount
         - topicGroupId
       properties:
-        id:
-          type: string
+        topicId:
+          $ref: '#/components/schemas/TopicId'
         name:
           type: string
         topicSlug:
@@ -300,11 +305,11 @@ components:
     TopicGroup:
       type: object
       required:
-        - id
+        - topicGroupId
         - name
         - topics
       properties:
-        id:
+        topicGroupId:
           type: string
         name:
           type: string
@@ -350,10 +355,10 @@ components:
       description: Test with user answers
       type: object
       required:
-        - testContent
+        - test
         - answers
       properties:
-        testContent:
+        test:
           $ref: "#/components/schemas/Test"
         answers:
           $ref: "#/components/schemas/UserTestAnswers"
@@ -366,7 +371,9 @@ components:
         - licenceClass
       properties:
         testParts:
-          $ref: "#/components/schemas/TestPart"
+          type: array
+          items:
+            $ref: "#/components/schemas/TestPart"
         licenceClass:
           $ref: "#/components/schemas/LicenceClass"
 
@@ -383,7 +390,7 @@ components:
           $ref: "#/components/schemas/QuestionList"
 
     UserTestAnswers:
-      description: User test answers map
+      description: User test answers map, question ID => selected answer ID. Note that an empty map is returned as `[]` in responses.
       type: object
       additionalProperties:
         type: string
@@ -395,7 +402,7 @@ components:
         - licenceClass
         - answers
         - test
-        - evaluationResult
+        - result
       properties:
         licenceClass:
           $ref: "#/components/schemas/LicenceClass"
@@ -403,7 +410,7 @@ components:
           $ref: "#/components/schemas/UserTestAnswers"
         test:
           $ref: "#/components/schemas/Test"
-        evaluationResult:
+        result:
           $ref: "#/components/schemas/TestEvaluation"
 
     TestEvaluation:
@@ -422,6 +429,7 @@ components:
         totalCorrectAnswers:
           type: integer
         resultsByTopicGroup:
+          description: Results keyed by topic group ID
           type: object
           additionalProperties:
             $ref: "#/components/schemas/TestEvaluationTopicGroupResult"
@@ -454,10 +462,10 @@ components:
     Error:
       type: object
       required:
-        - message
+        - error
         - status
       properties:
-        message:
+        error:
           description: A human readable error message
           type: string
         status:
@@ -469,7 +477,7 @@ components:
 
     LicenceClassQueryParam:
       name: licenceClass
-      description: Selected licence class
+      description: Selected licence class (case insensitive)
       in: query
       required: true
       schema:
@@ -477,7 +485,7 @@ components:
 
     TopicIdQueryParam:
       name: topicId
-      description: Selected topic ID
+      description: Selected topic ID (positive integer)
       in: query
       required: true
       schema:
@@ -501,7 +509,7 @@ components:
 
     OptionalLicenceClassQueryParam:
       name: licenceClass
-      description: Limit questions to selected licence classes (comma separated). When omitted, questions for all licence classes are used.
+      description: Limit to questions for selected licence classes, comma separated and case insensitive (e.g. `A`, `N` or `A,N`). When omitted, questions for all licence classes are used.
       in: query
       required: false
       schema:
