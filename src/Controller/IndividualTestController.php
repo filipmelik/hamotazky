@@ -8,7 +8,7 @@ use App\Logic\IndividualTestEvaluator;
 use App\Entity\LicenceClass;
 use App\Utils\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -92,7 +92,6 @@ class IndividualTestController extends AbstractController
         $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, false
         );
-        $response->send();
         return $response;
       }
     }
@@ -126,7 +125,6 @@ class IndividualTestController extends AbstractController
         $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, false
         );
-        $response->send();
         return $response;
       }
     }

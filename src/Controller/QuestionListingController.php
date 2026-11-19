@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\DataSource\DataSourceV1;
 use App\Entity\LicenceClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 

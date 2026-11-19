@@ -11,7 +11,7 @@ use App\Logic\IndividualTestEvaluator;
 use App\Utils\JsonResponse;
 use App\Utils\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,13 +26,11 @@ class ApiV1Controller extends AbstractController
         $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
         $topics = $dataSource->getAllTopics($licenceClassesFilter);
         $response = JsonResponse::prepareOkJsonResponse(json_encode($topics), true);
-        $response->send();
         return $response;
       } catch (\InvalidArgumentException $e) {
         $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, true
         );
-        $response->send();
         return $response;
       }
     }
@@ -44,13 +42,11 @@ class ApiV1Controller extends AbstractController
         $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
         $topics = $dataSource->getGroupedTopics($licenceClassesFilter);
         $response = JsonResponse::prepareOkJsonResponse(json_encode($topics), true);
-        $response->send();
         return $response;
       } catch (\InvalidArgumentException $e) {
         $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, true
         );
-        $response->send();
         return $response;
       }
     }
@@ -76,14 +72,12 @@ class ApiV1Controller extends AbstractController
         );
         
         $response = JsonResponse::prepareOkJsonResponse(json_encode($payload), true);
-        $response->send();
     
         return $response;
       } catch (\InvalidArgumentException $e) {
         $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, true
         );
-        $response->send();
         return $response;
       }
     }
@@ -96,13 +90,11 @@ class ApiV1Controller extends AbstractController
         $licenceClass = LicenceClass::validateLicenceClass($rawLicenceClass);
         $test = $testComposer->prepareTest($licenceClass);
         $response = JsonResponse::prepareOkJsonResponse(json_encode($test), true);
-        $response->send();
         return $response;
       } catch (\InvalidArgumentException $e) {
         $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, true
         );
-        $response->send();
         return $response;
       }
     }
@@ -113,7 +105,6 @@ class ApiV1Controller extends AbstractController
       if ($request->getMethod() === 'OPTIONS') {
         // handle CORS preflight
         $response = JsonResponse::prepareOkJsonResponse(null, true);
-        $response->send();
         return $response;
       }
 
@@ -124,14 +115,12 @@ class ApiV1Controller extends AbstractController
 
         $result = $testEvaluator->evaluateTest($answers, $test);
         $response = JsonResponse::prepareOkJsonResponse(json_encode($result), true);
-        $response->send();
         return $response;
 
       } catch (\InvalidArgumentException $e) {
         $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, true
         );
-        $response->send();
         return $response;
       }
     }
