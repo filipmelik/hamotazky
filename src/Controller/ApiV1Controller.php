@@ -22,7 +22,7 @@ class ApiV1Controller extends AbstractController
     const MAX_QUESTIONS_PER_REQUEST = 100;
     const DEFAULT_RANDOM_QUESTIONS_COUNT = 10;
 
-    #[Route('/api/v1/topics', name: 'api-v1-get-topics')]
+    #[Route('/api/v1/topics', name: 'api-v1-get-topics', methods: ['GET'])]
     public function getAllTopics(Request $request, DataSourceV1 $dataSource): Response
     {
       try {
@@ -38,7 +38,7 @@ class ApiV1Controller extends AbstractController
       }
     }
 
-    #[Route('/api/v1/grouped-topics', name: 'api-v1-get-grouped-topics')]
+    #[Route('/api/v1/grouped-topics', name: 'api-v1-get-grouped-topics', methods: ['GET'])]
     public function getGroupedTopics(Request $request, DataSourceV1 $dataSource): Response
     {
       try {
@@ -54,7 +54,7 @@ class ApiV1Controller extends AbstractController
       }
     }
 
-    #[Route('/api/v1/questions-by-topic-id', name: 'api-v1-get-questions-by-topic-id')]
+    #[Route('/api/v1/questions-by-topic-id', name: 'api-v1-get-questions-by-topic-id', methods: ['GET'])]
     public function getGetQuestionsForTopicId(Request $request, DataSourceV1 $dataSource): Response
     {
       try {
@@ -155,7 +155,7 @@ class ApiV1Controller extends AbstractController
       }
     }
 
-    #[Route('/api/v1/get-test', name: 'api-v1-get-test')]
+    #[Route('/api/v1/get-test', name: 'api-v1-get-test', methods: ['GET'])]
     public function getTest(Request $request, IndividualTestComposer $testComposer): Response
     {
       try {

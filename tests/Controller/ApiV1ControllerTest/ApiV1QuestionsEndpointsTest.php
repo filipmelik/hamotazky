@@ -145,6 +145,26 @@ class ApiV1QuestionsEndpointsTest extends WebTestCase
         yield 'invalid licence class' => ['licenceClass=X', 'licenceClass'];
     }
 
+    #[DataProvider('getOnlyEndpointsProvider')]
+    public function testGetEndpointsRejectOtherMethods(string $uri): void
+    {
+        // when
+        $this->client->request('POST', $uri);
+
+        // then
+        $this->assertResponseStatusCodeSame(405);
+    }
+
+    public static function getOnlyEndpointsProvider(): iterable
+    {
+        yield 'topics' => ['/api/v1/topics'];
+        yield 'grouped topics' => ['/api/v1/grouped-topics'];
+        yield 'questions by topic id' => ['/api/v1/questions-by-topic-id?topicId=1'];
+        yield 'questions by ids' => ['/api/v1/questions/1'];
+        yield 'random questions' => ['/api/v1/random-questions'];
+        yield 'test' => ['/api/v1/get-test?licenceClass=A'];
+    }
+
     private function requestJson(string $uri): array
     {
         $this->client->request('GET', $uri);
