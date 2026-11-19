@@ -56,6 +56,9 @@ class QuestionPracticeController extends AbstractController
         $topicName = 'Všechny otázky';
       } else {
         $topic = $dataSource->getTopicBySlug($topicSlug);
+        if ($topic === null) {
+          throw $this->createNotFoundException("Topic '{$topicSlug}' does not exist.");
+        }
         $questionIds = $dataSource->getQuestionIdsFromTopic($topic->topicId, [$licenceClass]);
         $topicName = $topic->name;
       }

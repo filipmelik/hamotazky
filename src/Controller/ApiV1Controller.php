@@ -79,9 +79,17 @@ class ApiV1Controller extends AbstractController
         $rawTopicId = $request->query->get('topicId');
         $topicId = $this->validateTopicId($rawTopicId);
         $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
+
+        $topic = $dataSource->getTopic($topicId);
+        if ($topic === null) {
+          $response = JsonResponse::prepareErrorJsonResponse(
+            "Topic with ID '{$topicId}' was not found.", Response::HTTP_NOT_FOUND, true
+          );
+          return $response;
+        }
+
         $questionIds = $dataSource->getQuestionIdsFromTopic($topicId, $licenceClassesFilter);
         $questions = $dataSource->getQuestionsByIds($questionIds);
-        $topic = $dataSource->getTopic($topicId);
         $topic->questionCount = count($questions); // patch count to cope with possible licence class filtering
 
         $licenceClasses = empty($licenceClassesFilter) ? LicenceClass::ALL : $licenceClassesFilter;
@@ -219,6 +227,11 @@ class ApiV1Controller extends AbstractController
 
       try {
         $payload = json_decode($request->getContent(), true);
+        if (!is_array($payload) || !is_array($payload['answers'] ?? null) || !is_array($payload['test'] ?? null)) {
+          throw new \InvalidArgumentException(
+            "Request body must be a JSON object with 'answers' and 'test' objects."
+          );
+        }
         $answers = $payload['answers'];
         $test = $payload['test'];
 
@@ -251,10 +264,10 @@ class ApiV1Controller extends AbstractController
         );
       }
 
-      if (is_numeric($topicId) === false) {
+      if (ctype_digit($topicId) === false) {
         throw new \InvalidArgumentException(
           sprintf(
-            "'topicId' should be an integer value, but '{$topicId}' was supplied.", 
+            "'topicId' should be a positive integer value, but '{$topicId}' was supplied.", 
             implode(', ', LicenceClass::ALL),
           )
         );

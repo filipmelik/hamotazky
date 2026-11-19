@@ -158,24 +158,24 @@ class DataSourceV1 {
 
     /**
      * @param string $topicId
-     * @return Topic
+     * @return Topic|null null when topic does not exist
      */
-    public function getTopic(string $topicId): Topic 
+    public function getTopic(string $topicId): ?Topic 
     {
         $dbTopicsData = $this->fetchTopicsByIds([$topicId]);
         
-        return current($dbTopicsData);
+        return $dbTopicsData[0] ?? null;
     }
 
     /**
-     * @param string $topicId
-     * @return Topic
+     * @param string $topicSlug
+     * @return Topic|null null when topic does not exist
      */
-    public function getTopicBySlug(string $topicSlug): Topic 
+    public function getTopicBySlug(string $topicSlug): ?Topic 
     {
         $dbTopicsData = $this->fetchTopicsBySlugs([$topicSlug]);
         
-        return current($dbTopicsData);
+        return $dbTopicsData[0] ?? null;
     }
 
     /**
