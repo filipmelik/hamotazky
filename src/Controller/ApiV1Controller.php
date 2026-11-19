@@ -22,9 +22,15 @@ class ApiV1Controller extends AbstractController
     const MAX_QUESTIONS_PER_REQUEST = 100;
     const DEFAULT_RANDOM_QUESTIONS_COUNT = 10;
 
-    #[Route('/api/v1/topics', name: 'api-v1-get-topics', methods: ['GET'])]
+    #[Route('/api/v1/topics', name: 'api-v1-get-topics', methods: ['GET', 'OPTIONS'])]
     public function getAllTopics(Request $request, DataSourceV1 $dataSource): Response
     {
+      if ($request->getMethod() === 'OPTIONS') {
+        // handle CORS preflight
+        $response = JsonResponse::prepareOkJsonResponse(null, true);
+        return $response;
+      }
+
       try {
         $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
         $topics = $dataSource->getAllTopics($licenceClassesFilter);
@@ -38,9 +44,15 @@ class ApiV1Controller extends AbstractController
       }
     }
 
-    #[Route('/api/v1/grouped-topics', name: 'api-v1-get-grouped-topics', methods: ['GET'])]
+    #[Route('/api/v1/grouped-topics', name: 'api-v1-get-grouped-topics', methods: ['GET', 'OPTIONS'])]
     public function getGroupedTopics(Request $request, DataSourceV1 $dataSource): Response
     {
+      if ($request->getMethod() === 'OPTIONS') {
+        // handle CORS preflight
+        $response = JsonResponse::prepareOkJsonResponse(null, true);
+        return $response;
+      }
+
       try {
         $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
         $topics = $dataSource->getGroupedTopics($licenceClassesFilter);
@@ -54,9 +66,15 @@ class ApiV1Controller extends AbstractController
       }
     }
 
-    #[Route('/api/v1/questions-by-topic-id', name: 'api-v1-get-questions-by-topic-id', methods: ['GET'])]
+    #[Route('/api/v1/questions-by-topic-id', name: 'api-v1-get-questions-by-topic-id', methods: ['GET', 'OPTIONS'])]
     public function getGetQuestionsForTopicId(Request $request, DataSourceV1 $dataSource): Response
     {
+      if ($request->getMethod() === 'OPTIONS') {
+        // handle CORS preflight
+        $response = JsonResponse::prepareOkJsonResponse(null, true);
+        return $response;
+      }
+
       try {
         $rawTopicId = $request->query->get('topicId');
         $topicId = $this->validateTopicId($rawTopicId);
@@ -85,9 +103,15 @@ class ApiV1Controller extends AbstractController
       }
     }
 
-    #[Route('/api/v1/questions/{questionIds}', name: 'api-v1-get-questions-by-ids', methods: ['GET'])]
-    public function getQuestionsByIds(string $questionIds, DataSourceV1 $dataSource): Response
+    #[Route('/api/v1/questions/{questionIds}', name: 'api-v1-get-questions-by-ids', methods: ['GET', 'OPTIONS'])]
+    public function getQuestionsByIds(Request $request, string $questionIds, DataSourceV1 $dataSource): Response
     {
+      if ($request->getMethod() === 'OPTIONS') {
+        // handle CORS preflight
+        $response = JsonResponse::prepareOkJsonResponse(null, true);
+        return $response;
+      }
+
       try {
         $ids = $this->validateQuestionIds($questionIds);
 
@@ -121,9 +145,15 @@ class ApiV1Controller extends AbstractController
       }
     }
 
-    #[Route('/api/v1/random-questions', name: 'api-v1-get-random-questions', methods: ['GET'])]
+    #[Route('/api/v1/random-questions', name: 'api-v1-get-random-questions', methods: ['GET', 'OPTIONS'])]
     public function getRandomQuestions(Request $request, DataSourceV1 $dataSource): Response
     {
+      if ($request->getMethod() === 'OPTIONS') {
+        // handle CORS preflight
+        $response = JsonResponse::prepareOkJsonResponse(null, true);
+        return $response;
+      }
+
       try {
         $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
         $count = $this->validateQuestionCount($request->query->get('count'));
@@ -155,9 +185,15 @@ class ApiV1Controller extends AbstractController
       }
     }
 
-    #[Route('/api/v1/get-test', name: 'api-v1-get-test', methods: ['GET'])]
+    #[Route('/api/v1/get-test', name: 'api-v1-get-test', methods: ['GET', 'OPTIONS'])]
     public function getTest(Request $request, IndividualTestComposer $testComposer): Response
     {
+      if ($request->getMethod() === 'OPTIONS') {
+        // handle CORS preflight
+        $response = JsonResponse::prepareOkJsonResponse(null, true);
+        return $response;
+      }
+
       try {
         $rawLicenceClass = $request->query->get('licenceClass');
         $licenceClass = LicenceClass::validateLicenceClass($rawLicenceClass);

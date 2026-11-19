@@ -155,6 +155,24 @@ class ApiV1QuestionsEndpointsTest extends WebTestCase
         $this->assertResponseStatusCodeSame(405);
     }
 
+    #[DataProvider('getOnlyEndpointsProvider')]
+    public function testGetEndpointsAnswerCorsPreflight(string $uri): void
+    {
+        // when
+        $this->client->request('OPTIONS', $uri, server: [
+            'HTTP_ORIGIN' => 'https://example.com',
+            'HTTP_ACCESS_CONTROL_REQUEST_METHOD' => 'GET',
+            'HTTP_ACCESS_CONTROL_REQUEST_HEADERS' => 'content-type',
+        ]);
+
+        // then
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('access-control-allow-origin', '*');
+        $this->assertResponseHeaderSame('access-control-allow-methods', 'GET, POST, OPTIONS');
+        $this->assertResponseHeaderSame('access-control-allow-headers', 'Content-Type');
+        $this->assertSame('', $this->client->getResponse()->getContent());
+    }
+
     public static function getOnlyEndpointsProvider(): iterable
     {
         yield 'topics' => ['/api/v1/topics'];
