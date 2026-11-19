@@ -230,10 +230,10 @@ class DataSourceV1 {
             FROM Question
             WHERE `questionId` IN (?)
         ';
-        $existingIds = array_map(
-            'strval',
-            $this->db->fetchFirstColumn($sql, [$questionIds], [ArrayParameterType::STRING]),
-        );
+        $existingIds = [];
+        foreach ($this->db->fetchFirstColumn($sql, [$questionIds], [ArrayParameterType::STRING]) as $questionId) {
+            $existingIds[] = (string)$questionId;
+        }
 
         return array_values(array_diff($questionIds, $existingIds));
     }
@@ -261,7 +261,9 @@ class DataSourceV1 {
     {
         $questionIds = [];
         foreach ($topicIds as $topicId) {
-            $questionIds = [...$questionIds, ...$this->getQuestionIdsFromTopic($topicId, $licenceClassFilter)];
+            foreach ($this->getQuestionIdsFromTopic($topicId, $licenceClassFilter) as $questionId) {
+                $questionIds[] = $questionId;
+            }
         }
 
         return array_values(array_unique($questionIds));
@@ -360,7 +362,7 @@ class DataSourceV1 {
     /**
      * Fetch Topic objects for given topic slugs
      *
-     * @param string[] $topicSlugs
+     * @param int[] $topicSlugs
      * @param array|null $licenceClassesFilter
      * @return Topic[]
      */

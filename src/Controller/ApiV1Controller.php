@@ -93,11 +93,12 @@ class ApiV1Controller extends AbstractController
 
         $missingIds = $dataSource->findMissingQuestionIds($ids);
         if (!empty($missingIds)) {
-          return JsonResponse::prepareErrorJsonResponse(
+          $response = JsonResponse::prepareErrorJsonResponse(
             sprintf("Questions with following IDs were not found: [%s]", implode(', ', $missingIds)),
             Response::HTTP_NOT_FOUND,
             true,
           );
+          return $response;
         }
 
         // return questions in the same order as they were requested
@@ -105,13 +106,18 @@ class ApiV1Controller extends AbstractController
         foreach ($dataSource->getQuestionsByIds($ids) as $question) {
           $questionsById[$question->questionId] = $question;
         }
-        $questions = array_map(fn (string $id) => $questionsById[$id], $ids);
+        $questions = [];
+        foreach ($ids as $id) {
+          $questions[] = $questionsById[$id];
+        }
 
-        return JsonResponse::prepareOkJsonResponse(json_encode($questions), true);
+        $response = JsonResponse::prepareOkJsonResponse(json_encode($questions), true);
+        return $response;
       } catch (\InvalidArgumentException $e) {
-        return JsonResponse::prepareErrorJsonResponse(
+        $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, true
         );
+        return $response;
       }
     }
 
@@ -131,18 +137,21 @@ class ApiV1Controller extends AbstractController
         }
 
         if (empty($questionIds)) {
-          return JsonResponse::prepareOkJsonResponse(json_encode([]), true);
+          $response = JsonResponse::prepareOkJsonResponse(json_encode([]), true);
+          return $response;
         }
 
         $randomizer = new \Random\Randomizer();
         $selectedIds = array_slice($randomizer->shuffleArray($questionIds), 0, $count);
         $questions = $randomizer->shuffleArray($dataSource->getQuestionsByIds($selectedIds));
 
-        return JsonResponse::prepareOkJsonResponse(json_encode($questions), true);
+        $response = JsonResponse::prepareOkJsonResponse(json_encode($questions), true);
+        return $response;
       } catch (\InvalidArgumentException $e) {
-        return JsonResponse::prepareErrorJsonResponse(
+        $response = JsonResponse::prepareErrorJsonResponse(
           $e->getMessage(), Response::HTTP_BAD_REQUEST, true
         );
+        return $response;
       }
     }
 
@@ -287,15 +296,21 @@ class ApiV1Controller extends AbstractController
         );
       }
 
-      $topics = $dataSource->getTopicsBySlugs($slugs);
-      $unknownSlugs = array_diff($slugs, array_map(fn ($topic) => $topic->topicSlug, $topics));
+      $topicIds = [];
+      $foundSlugs = [];
+      foreach ($dataSource->getTopicsBySlugs($slugs) as $topic) {
+        $topicIds[] = $topic->topicId;
+        $foundSlugs[] = $topic->topicSlug;
+      }
+
+      $unknownSlugs = array_diff($slugs, $foundSlugs);
       if (!empty($unknownSlugs)) {
         throw new \InvalidArgumentException(
           sprintf("Unknown topic slugs: [%s]", implode(', ', $unknownSlugs))
         );
       }
 
-      return array_map(fn ($topic) => $topic->topicId, $topics);
+      return $topicIds;
     }
 
 }
