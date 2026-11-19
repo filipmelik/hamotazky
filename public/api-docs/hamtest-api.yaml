@@ -91,6 +91,70 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'                             
 
+  /api/v1/questions/{questionIds}:
+    parameters:
+      - $ref: '#/components/parameters/QuestionIdsPathParam'
+    get:
+      summary: Get questions by their IDs
+      description: Questions are returned in the same order as requested. Duplicate IDs are ignored. At most 100 IDs can be requested at once.
+      tags: 
+        - api-v1
+      responses:
+        '200':
+          description: Requested questions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionList'
+        400:
+          description: Empty, invalid or too many question IDs supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Some of the requested questions do not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/random-questions:
+    parameters:
+      - $ref: '#/components/parameters/TopicSlugsQueryParam'
+      - $ref: '#/components/parameters/OptionalLicenceClassQueryParam'
+      - $ref: '#/components/parameters/QuestionCountQueryParam'
+    get:
+      summary: Get random questions from selected topics and licence class
+      description: When there are fewer matching questions than `count`, all matching questions are returned.
+      tags: 
+        - api-v1
+      responses:
+        '200':
+          description: Randomly selected questions in random order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionList'
+        400:
+          description: Unknown `topicSlug`, invalid `licenceClass` or `count` supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
   /api/v1/get-test:
     parameters:
       - $ref: '#/components/parameters/LicenceClassQueryParam'
@@ -419,3 +483,37 @@ components:
       schema:
         $ref: '#/components/schemas/TopicId'
 
+    QuestionIdsPathParam:
+      name: questionIds
+      description: Comma separated list of question IDs, e.g. `5,1,3`
+      in: path
+      required: true
+      schema:
+        type: string
+
+    TopicSlugsQueryParam:
+      name: topicSlug
+      description: Comma separated list of topic slugs, e.g. `q-kody,zkratky`. When omitted, questions from all topics are used.
+      in: query
+      required: false
+      schema:
+        type: string
+
+    OptionalLicenceClassQueryParam:
+      name: licenceClass
+      description: Limit questions to selected licence classes (comma separated). When omitted, questions for all licence classes are used.
+      in: query
+      required: false
+      schema:
+        type: string
+
+    QuestionCountQueryParam:
+      name: count
+      description: Number of questions to return
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10

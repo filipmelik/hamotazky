@@ -19,6 +19,9 @@ use Symfony\Component\HttpFoundation\Request;
 class ApiV1Controller extends AbstractController
 {
 
+    const MAX_QUESTIONS_PER_REQUEST = 100;
+    const DEFAULT_RANDOM_QUESTIONS_COUNT = 10;
+
     #[Route('/api/v1/topics', name: 'api-v1-get-topics')]
     public function getAllTopics(Request $request, DataSourceV1 $dataSource): Response
     {
@@ -79,6 +82,67 @@ class ApiV1Controller extends AbstractController
           $e->getMessage(), Response::HTTP_BAD_REQUEST, true
         );
         return $response;
+      }
+    }
+
+    #[Route('/api/v1/questions/{questionIds}', name: 'api-v1-get-questions-by-ids', methods: ['GET'])]
+    public function getQuestionsByIds(string $questionIds, DataSourceV1 $dataSource): Response
+    {
+      try {
+        $ids = $this->validateQuestionIds($questionIds);
+
+        $missingIds = $dataSource->findMissingQuestionIds($ids);
+        if (!empty($missingIds)) {
+          return JsonResponse::prepareErrorJsonResponse(
+            sprintf("Questions with following IDs were not found: [%s]", implode(', ', $missingIds)),
+            Response::HTTP_NOT_FOUND,
+            true,
+          );
+        }
+
+        // return questions in the same order as they were requested
+        $questionsById = [];
+        foreach ($dataSource->getQuestionsByIds($ids) as $question) {
+          $questionsById[$question->questionId] = $question;
+        }
+        $questions = array_map(fn (string $id) => $questionsById[$id], $ids);
+
+        return JsonResponse::prepareOkJsonResponse(json_encode($questions), true);
+      } catch (\InvalidArgumentException $e) {
+        return JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, true
+        );
+      }
+    }
+
+    #[Route('/api/v1/random-questions', name: 'api-v1-get-random-questions', methods: ['GET'])]
+    public function getRandomQuestions(Request $request, DataSourceV1 $dataSource): Response
+    {
+      try {
+        $licenceClassesFilter = Utils::prepareLicenceClassesFilter($request);
+        $count = $this->validateQuestionCount($request->query->get('count'));
+
+        $rawTopicSlugs = $request->query->get('topicSlug');
+        if ($rawTopicSlugs === null) {
+          $questionIds = $dataSource->getAllQuestionIds($licenceClassesFilter);
+        } else {
+          $topicIds = $this->resolveTopicSlugs($rawTopicSlugs, $dataSource);
+          $questionIds = $dataSource->getQuestionIdsFromTopics($topicIds, $licenceClassesFilter);
+        }
+
+        if (empty($questionIds)) {
+          return JsonResponse::prepareOkJsonResponse(json_encode([]), true);
+        }
+
+        $randomizer = new \Random\Randomizer();
+        $selectedIds = array_slice($randomizer->shuffleArray($questionIds), 0, $count);
+        $questions = $randomizer->shuffleArray($dataSource->getQuestionsByIds($selectedIds));
+
+        return JsonResponse::prepareOkJsonResponse(json_encode($questions), true);
+      } catch (\InvalidArgumentException $e) {
+        return JsonResponse::prepareErrorJsonResponse(
+          $e->getMessage(), Response::HTTP_BAD_REQUEST, true
+        );
       }
     }
 
@@ -152,6 +216,86 @@ class ApiV1Controller extends AbstractController
       }
 
       return $topicId; 
+    }
+
+    /**
+     * Validate comma separated list of question IDs
+     *
+     * @param string $rawQuestionIds
+     * @return string[]
+     */
+    private function validateQuestionIds(string $rawQuestionIds): array
+    {
+      $ids = Utils::parseCommaSeparatedList($rawQuestionIds);
+
+      if (empty($ids)) {
+        throw new \InvalidArgumentException(
+          "No question IDs provided. Please provide comma separated list of question IDs."
+        );
+      }
+
+      if (count($ids) > self::MAX_QUESTIONS_PER_REQUEST) {
+        throw new \InvalidArgumentException(
+          sprintf("Too many question IDs. At most %d IDs can be requested at once.", self::MAX_QUESTIONS_PER_REQUEST)
+        );
+      }
+
+      foreach ($ids as $id) {
+        if (preg_match('/^[A-Za-z0-9_-]+$/', $id) !== 1) {
+          throw new \InvalidArgumentException("Question ID '{$id}' is invalid.");
+        }
+      }
+
+      return $ids;
+    }
+
+    /**
+     * Validate requested number of questions, use default when not provided
+     *
+     * @param mixed $rawCount
+     * @return int
+     */
+    private function validateQuestionCount(mixed $rawCount): int
+    {
+      if ($rawCount === null) {
+        return self::DEFAULT_RANDOM_QUESTIONS_COUNT;
+      }
+
+      $count = filter_var($rawCount, FILTER_VALIDATE_INT);
+      if ($count === false || $count < 1 || $count > self::MAX_QUESTIONS_PER_REQUEST) {
+        throw new \InvalidArgumentException(
+          sprintf("'count' should be an integer between 1 and %d.", self::MAX_QUESTIONS_PER_REQUEST)
+        );
+      }
+
+      return $count;
+    }
+
+    /**
+     * Resolve comma separated topic slugs to topic IDs, fail on unknown slugs
+     *
+     * @param string $rawTopicSlugs
+     * @param DataSourceV1 $dataSource
+     * @return string[]
+     */
+    private function resolveTopicSlugs(string $rawTopicSlugs, DataSourceV1 $dataSource): array
+    {
+      $slugs = Utils::parseCommaSeparatedList($rawTopicSlugs);
+      if (empty($slugs)) {
+        throw new \InvalidArgumentException(
+          "'topicSlug' parameter is empty. Please provide one or more comma separated topic slugs."
+        );
+      }
+
+      $topics = $dataSource->getTopicsBySlugs($slugs);
+      $unknownSlugs = array_diff($slugs, array_map(fn ($topic) => $topic->topicSlug, $topics));
+      if (!empty($unknownSlugs)) {
+        throw new \InvalidArgumentException(
+          sprintf("Unknown topic slugs: [%s]", implode(', ', $unknownSlugs))
+        );
+      }
+
+      return array_map(fn ($topic) => $topic->topicId, $topics);
     }
 
 }

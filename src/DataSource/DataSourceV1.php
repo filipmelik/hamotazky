@@ -218,6 +218,56 @@ class DataSourceV1 {
     }
 
     /**
+     * Return those of given question IDs which don't exist in database
+     *
+     * @param string[] $questionIds
+     * @return string[]
+     */
+    public function findMissingQuestionIds(array $questionIds): array
+    {
+        $sql = '
+            SELECT `questionId`
+            FROM Question
+            WHERE `questionId` IN (?)
+        ';
+        $existingIds = array_map(
+            'strval',
+            $this->db->fetchFirstColumn($sql, [$questionIds], [ArrayParameterType::STRING]),
+        );
+
+        return array_values(array_diff($questionIds, $existingIds));
+    }
+
+    /**
+     * Fetch Topic objects for given topic slugs, optionally counting only questions for selected licence classes
+     *
+     * @param string[] $topicSlugs
+     * @param array|null $licenceClassesFilter
+     * @return Topic[]
+     */
+    public function getTopicsBySlugs(array $topicSlugs, ?array $licenceClassesFilter = null): array
+    {
+        return $this->fetchTopicsBySlugs($topicSlugs, $licenceClassesFilter);
+    }
+
+    /**
+     * Get question IDs from selected topics, optionally limit just to selected licence classes
+     *
+     * @param string[] $topicIds
+     * @param array|null $licenceClassFilter
+     * @return string[]
+     */
+    public function getQuestionIdsFromTopics(array $topicIds, ?array $licenceClassFilter = null): array
+    {
+        $questionIds = [];
+        foreach ($topicIds as $topicId) {
+            $questionIds = [...$questionIds, ...$this->getQuestionIdsFromTopic($topicId, $licenceClassFilter)];
+        }
+
+        return array_values(array_unique($questionIds));
+    }
+
+    /**
      * Randomly shuffle provided answers associative array 
      *
      * @param array $answersData
@@ -310,7 +360,7 @@ class DataSourceV1 {
     /**
      * Fetch Topic objects for given topic slugs
      *
-     * @param int[] $topicSlugs
+     * @param string[] $topicSlugs
      * @param array|null $licenceClassesFilter
      * @return Topic[]
      */
