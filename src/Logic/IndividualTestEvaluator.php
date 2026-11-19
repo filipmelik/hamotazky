@@ -26,7 +26,11 @@ class IndividualTestEvaluator {
         array $answers,
         array $test, 
     ): TestEvaluationResult {
-        $licenceClass = $test['licenceClass'];
+        $licenceClass = $test['licenceClass'] ?? null;
+        if (!is_string($licenceClass)) {
+            throw new \InvalidArgumentException("'test.licenceClass' is missing or is not a string.");
+        }
+        $this->validateAnswers($answers);
 
         match ($licenceClass) {
             LicenceClass::CLASS_A => $evaluationResult = $this->evaluateHarecTest($answers, $test),
@@ -95,6 +99,8 @@ class IndividualTestEvaluator {
         array $test,
         array $evaluationCriteria,
     ): TestEvaluation {
+        $this->validateTest($test, $evaluationCriteria);
+
         $totalCorrectAnswers = 0;
         $totalWrongAnswers = 0;
         $resultsByTopicGroup = [];
@@ -164,4 +170,78 @@ class IndividualTestEvaluator {
             $passedOverall,
         );
     }
+
+    /**
+     * Validate user answers map (question ID => answer ID)
+     *
+     * @param array $answers
+     * @return void
+     */
+    private function validateAnswers(array $answers): void
+    {
+        foreach ($answers as $questionId => $answerId) {
+            if (!is_string($answerId)) {
+                throw new \InvalidArgumentException(
+                    "'answers' must map question IDs to answer ID strings, invalid value for question '{$questionId}'."
+                );
+            }
+        }
+    }
+
+    /**
+     * Validate structure of submitted test, so the evaluation can rely on it
+     *
+     * @param array $test
+     * @param array $evaluationCriteria topic group ID => minimum points to pass
+     * @return void
+     */
+    private function validateTest(array $test, array $evaluationCriteria): void
+    {
+        $testParts = $test['testParts'] ?? null;
+        if (!is_array($testParts) || !array_is_list($testParts) || empty($testParts)) {
+            throw new \InvalidArgumentException("'test.testParts' must be a non-empty array.");
+        }
+
+        foreach ($testParts as $partIndex => $part) {
+            $path = "test.testParts[{$partIndex}]";
+
+            $topicGroupId = $part['topicGroup']['topicGroupId'] ?? null;
+            if (!is_scalar($topicGroupId) || !isset($evaluationCriteria[(string)$topicGroupId])) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        "'%s.topicGroup.topicGroupId' must be one of: [%s].",
+                        $path,
+                        implode(', ', array_keys($evaluationCriteria)),
+                    )
+                );
+            }
+
+            $questions = $part['topicGroupQuestions'] ?? null;
+            if (!is_array($questions) || !array_is_list($questions) || empty($questions)) {
+                throw new \InvalidArgumentException("'{$path}.topicGroupQuestions' must be a non-empty array.");
+            }
+
+            foreach ($questions as $questionIndex => $question) {
+                $questionPath = "{$path}.topicGroupQuestions[{$questionIndex}]";
+
+                if (!is_scalar($question['questionId'] ?? null)) {
+                    throw new \InvalidArgumentException("'{$questionPath}.questionId' is missing.");
+                }
+
+                $answers = $question['answers'] ?? null;
+                if (!is_array($answers)) {
+                    throw new \InvalidArgumentException("'{$questionPath}.answers' must be an array.");
+                }
+
+                foreach ($answers as $answer) {
+                    if (!is_string($answer['answerId'] ?? null) || !is_bool($answer['isCorrect'] ?? null)) {
+                        throw new \InvalidArgumentException(
+                            "Each of '{$questionPath}.answers' must have string 'answerId' and boolean 'isCorrect'."
+                        );
+                    }
+                }
+            }
+        }
+    }
+
 }

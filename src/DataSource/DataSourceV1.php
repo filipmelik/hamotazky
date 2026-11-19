@@ -158,24 +158,24 @@ class DataSourceV1 {
 
     /**
      * @param string $topicId
-     * @return Topic
+     * @return Topic|null null when topic does not exist
      */
-    public function getTopic(string $topicId): Topic 
+    public function getTopic(string $topicId): ?Topic 
     {
         $dbTopicsData = $this->fetchTopicsByIds([$topicId]);
         
-        return current($dbTopicsData);
+        return $dbTopicsData[0] ?? null;
     }
 
     /**
-     * @param string $topicId
-     * @return Topic
+     * @param string $topicSlug
+     * @return Topic|null null when topic does not exist
      */
-    public function getTopicBySlug(string $topicSlug): Topic 
+    public function getTopicBySlug(string $topicSlug): ?Topic 
     {
         $dbTopicsData = $this->fetchTopicsBySlugs([$topicSlug]);
         
-        return current($dbTopicsData);
+        return $dbTopicsData[0] ?? null;
     }
 
     /**
@@ -215,6 +215,58 @@ class DataSourceV1 {
         }
 
         return $questionIds;
+    }
+
+    /**
+     * Return those of given question IDs which don't exist in database
+     *
+     * @param string[] $questionIds
+     * @return string[]
+     */
+    public function findMissingQuestionIds(array $questionIds): array
+    {
+        $sql = '
+            SELECT `questionId`
+            FROM Question
+            WHERE `questionId` IN (?)
+        ';
+        $existingIds = [];
+        foreach ($this->db->fetchFirstColumn($sql, [$questionIds], [ArrayParameterType::STRING]) as $questionId) {
+            $existingIds[] = (string)$questionId;
+        }
+
+        return array_values(array_diff($questionIds, $existingIds));
+    }
+
+    /**
+     * Fetch Topic objects for given topic slugs, optionally counting only questions for selected licence classes
+     *
+     * @param string[] $topicSlugs
+     * @param array|null $licenceClassesFilter
+     * @return Topic[]
+     */
+    public function getTopicsBySlugs(array $topicSlugs, ?array $licenceClassesFilter = null): array
+    {
+        return $this->fetchTopicsBySlugs($topicSlugs, $licenceClassesFilter);
+    }
+
+    /**
+     * Get question IDs from selected topics, optionally limit just to selected licence classes
+     *
+     * @param string[] $topicIds
+     * @param array|null $licenceClassFilter
+     * @return string[]
+     */
+    public function getQuestionIdsFromTopics(array $topicIds, ?array $licenceClassFilter = null): array
+    {
+        $questionIds = [];
+        foreach ($topicIds as $topicId) {
+            foreach ($this->getQuestionIdsFromTopic($topicId, $licenceClassFilter) as $questionId) {
+                $questionIds[] = $questionId;
+            }
+        }
+
+        return array_values(array_unique($questionIds));
     }
 
     /**

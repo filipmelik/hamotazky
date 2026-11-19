@@ -40,4 +40,23 @@ class Utils {
       return $normalizedLicenceClasses;
     }
 
+    /**
+     * Split comma separated list into array of trimmed, unique, non-empty values (original order is kept)
+     *
+     * @param string $value
+     * @return string[]
+     */
+    static function parseCommaSeparatedList(string $value): array
+    {
+      $items = [];
+      foreach (explode(',', $value) as $item) {
+        $item = trim($item);
+        if ($item !== '' && !in_array($item, $items, true)) {
+          $items[] = $item;
+        }
+      }
+
+      return $items;
+    }
+
 }
