@@ -77,6 +77,14 @@ var QuestionViewMode = {
         });
     },
 
+    showNextQuestion: function() {
+        this.showQuestion(this._currentIndex + 1);
+    },
+
+    showPreviousQuestion: function() {
+        this.showQuestion(this._currentIndex - 1);
+    },
+
     /**
      * Re-read question boxes, e.g. after page content was replaced (resumed test)
      */
@@ -198,9 +206,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // pager can be re-rendered (resumed test), so listen on document
     document.addEventListener('click', (e) => {
         if (e.target.closest('.js-question-pager-prev')) {
-            QuestionViewMode.showQuestion(QuestionViewMode._currentIndex - 1);
+            QuestionViewMode.showPreviousQuestion();
         } else if (e.target.closest('.js-question-pager-next')) {
-            QuestionViewMode.showQuestion(QuestionViewMode._currentIndex + 1);
+            QuestionViewMode.showNextQuestion();
         } else if (e.target.closest('.js-question-pager-position')) {
             QuestionViewMode._openGoToQuestionModal();
         }
@@ -225,9 +233,9 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
         if (e.key === 'ArrowLeft') {
-            QuestionViewMode.showQuestion(QuestionViewMode._currentIndex - 1);
+            QuestionViewMode.showPreviousQuestion();
         } else if (e.key === 'ArrowRight') {
-            QuestionViewMode.showQuestion(QuestionViewMode._currentIndex + 1);
+            QuestionViewMode.showNextQuestion();
         }
     });
 

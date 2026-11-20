@@ -4,7 +4,15 @@ document.addEventListener("DOMContentLoaded", function() {
         answerRow.addEventListener('click', (e) => {
             e.preventDefault();
             isCorrectAnswer = answerRow.dataset.isCorrect === '1' ? true : false;
+
+            if (isCorrectAnswer && answerRow.dataset.answered === '1' && QuestionViewMode.isSingleMode()) {
+                // clicking already revealed correct answer again moves to the next question
+                QuestionViewMode.showNextQuestion();
+                return;
+            }
+
             setAnswerRowStatusForAnswerRow(answerRow, isCorrectAnswer);
+            answerRow.dataset.answered = '1';
         })
     });
 

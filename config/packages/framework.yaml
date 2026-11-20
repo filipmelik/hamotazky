@@ -6,7 +6,7 @@ framework:
     session: true
 
     assets:
-        version: 'v3'
+        version: 'v4'
 
 when@test:
     framework:
