@@ -53,11 +53,16 @@ var QuestionViewMode = {
         }
 
         index = Math.max(0, Math.min(index, questions.length - 1));
+        let previousIndex = this._currentIndex;
         this._currentIndex = index;
 
         questions.forEach((questionElement, i) => {
             questionElement.classList.toggle('is-current-question', i === index);
         });
+
+        if (this.isSingleMode() && index !== previousIndex) {
+            this._animateQuestionIn(questions[index], index > previousIndex ? 1 : -1);
+        }
 
         // in test, show only the heading of the part the current question belongs to
         let currentPart = questions[index].dataset.testPart;
@@ -77,6 +82,52 @@ var QuestionViewMode = {
      */
     refresh: function() {
         this.showQuestion(this._currentIndex);
+    },
+
+    /**
+     * Slide question in from the side user is moving to (direction 1 = next, -1 = previous)
+     */
+    _animateQuestionIn: function(questionElement, direction) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+        questionElement.animate(
+            {
+                opacity: [0, 1],
+                transform: [`translateX(${direction * 40}px)`, 'translateX(0)'],
+            },
+            { duration: 250, easing: 'ease-out' }
+        );
+    },
+
+    /**
+     * Popup where user types number of question to go to
+     */
+    _openGoToQuestionModal: function() {
+        let modalElement = document.getElementById('goToQuestionModal');
+        let inputElement = modalElement.querySelector('.js-go-to-question-input');
+        let questionCount = this._getQuestions().length;
+
+        inputElement.max = questionCount;
+        inputElement.value = this._currentIndex + 1;
+        modalElement.querySelector('.js-go-to-question-count').textContent = questionCount;
+        inputElement.classList.remove('is-invalid');
+
+        bootstrap.Modal.getOrCreateInstance(modalElement).show();
+    },
+
+    _submitGoToQuestionModal: function() {
+        let modalElement = document.getElementById('goToQuestionModal');
+        let inputElement = modalElement.querySelector('.js-go-to-question-input');
+        let questionNumber = Number(inputElement.value);
+
+        if (!Number.isInteger(questionNumber) || questionNumber < 1 || questionNumber > this._getQuestions().length) {
+            inputElement.classList.add('is-invalid');
+            return;
+        }
+
+        bootstrap.Modal.getOrCreateInstance(modalElement).hide();
+        this.showQuestion(questionNumber - 1);
     },
 
     _getQuestions: function() {
@@ -150,8 +201,21 @@ document.addEventListener("DOMContentLoaded", function() {
             QuestionViewMode.showQuestion(QuestionViewMode._currentIndex - 1);
         } else if (e.target.closest('.js-question-pager-next')) {
             QuestionViewMode.showQuestion(QuestionViewMode._currentIndex + 1);
+        } else if (e.target.closest('.js-question-pager-position')) {
+            QuestionViewMode._openGoToQuestionModal();
         }
     });
+
+    let goToQuestionModalElement = document.getElementById('goToQuestionModal');
+    if (goToQuestionModalElement) {
+        goToQuestionModalElement.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            QuestionViewMode._submitGoToQuestionModal();
+        });
+        goToQuestionModalElement.addEventListener('shown.bs.modal', () => {
+            goToQuestionModalElement.querySelector('.js-go-to-question-input').select();
+        });
+    }
 
     document.addEventListener('keydown', (e) => {
         if (!QuestionViewMode.isSingleMode() || e.altKey || e.ctrlKey || e.metaKey) {

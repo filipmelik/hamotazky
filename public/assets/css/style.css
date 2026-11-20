@@ -72,3 +72,8 @@ html[data-question-view="single"] .js-paged-question:not(.is-current-question),
 html[data-question-view="single"] .js-paged-question-part-heading:not(.is-current-question) {
     display: none;
 }
+
+.question-pager-position {
+    text-decoration: underline dotted;
+    text-underline-offset: 0.3em;
+}
