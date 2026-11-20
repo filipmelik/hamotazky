@@ -68,6 +68,11 @@ html[data-question-view="single"] .question-pager {
     display: block;
 }
 
+/* question slides in from the side, don't let it make the page horizontally scrollable */
+html[data-question-view="single"] body {
+    overflow-x: clip;
+}
+
 html[data-question-view="single"] .js-paged-question:not(.is-current-question),
 html[data-question-view="single"] .js-paged-question-part-heading:not(.is-current-question) {
     display: none;
@@ -76,4 +81,12 @@ html[data-question-view="single"] .js-paged-question-part-heading:not(.is-curren
 .question-pager-position {
     text-decoration: underline dotted;
     text-underline-offset: 0.3em;
+}
+
+@media (max-width: 767.98px) {
+    /* only one question is shown, no need for big gap between breadcrumbs and test part heading */
+    html[data-question-view="single"] .js-paged-question-part-heading {
+        margin-top: 0 !important;
+        padding-top: 0;
+    }
 }

@@ -25,6 +25,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 e.preventDefault();
                 let questionId = answerRow.dataset.questionId;
                 let answerId = answerRow.dataset.answerId;
+                let questionBoxElement = document.querySelector('.js-question-box-' + questionId);
+
+                if (questionBoxElement.dataset.selectedAnswerId === answerId && QuestionViewMode.isSingleMode()) {
+                    // clicking already selected answer again moves to the next question
+                    QuestionViewMode.showNextQuestion();
+                    return;
+                }
+
                 selectAnswerForQuestionId(questionId, answerId);
                 saveCurrentTestProgress();
                 TestStorage.saveTest(testContent);
