@@ -247,4 +247,53 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    // swipe left/right on touch screens moves to next/previous question
+    const SWIPE_MIN_DISTANCE = 50;      // px
+    const SWIPE_MAX_DURATION = 600;     // ms
+    const SWIPE_EDGE_IGNORE_ZONE = 25;  // px, leave screen edges to system back/forward gesture
+    let swipeStart = null;
+
+    document.addEventListener('touchstart', (e) => {
+        swipeStart = null;
+        if (!QuestionViewMode.isSingleMode() || e.touches.length !== 1) {
+            return;
+        }
+        if (document.querySelector('.modal.show, .offcanvas.show, .offcanvas.showing')) {
+            return;
+        }
+        if (e.target instanceof Element && e.target.closest('input, textarea, select, [contenteditable]')) {
+            return;
+        }
+        let touch = e.touches[0];
+        if (touch.clientX < SWIPE_EDGE_IGNORE_ZONE || touch.clientX > window.innerWidth - SWIPE_EDGE_IGNORE_ZONE) {
+            return;
+        }
+        swipeStart = { x: touch.clientX, y: touch.clientY, time: Date.now() };
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+        if (swipeStart === null || e.changedTouches.length === 0) {
+            return;
+        }
+        let touch = e.changedTouches[0];
+        let deltaX = touch.clientX - swipeStart.x;
+        let deltaY = touch.clientY - swipeStart.y;
+        let duration = Date.now() - swipeStart.time;
+        swipeStart = null;
+
+        let isHorizontalSwipe = Math.abs(deltaX) >= SWIPE_MIN_DISTANCE && Math.abs(deltaX) > Math.abs(deltaY) * 1.5;
+        if (!isHorizontalSwipe || duration > SWIPE_MAX_DURATION) {
+            return;
+        }
+        if (deltaX < 0) {
+            QuestionViewMode.showNextQuestion();
+        } else {
+            QuestionViewMode.showPreviousQuestion();
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchcancel', () => {
+        swipeStart = null;
+    }, { passive: true });
+
 });
