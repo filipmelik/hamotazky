@@ -20,7 +20,7 @@
         <span class="fs-2">Část {{ loop.index }}: {{ groupData.topicGroup.name }}</span>
     </div>
 
-    <div class="row py-2 row-cols-1">
+    <div class="row py-2 row-cols-1 js-paged-question-part" data-test-part="{{ testPart }}">
         <div class="col">
             {% for q in groupData.topicGroupQuestions %}
                 <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-question-box js-question-box-{{ q.questionId }} js-paged-question" data-question-id="{{ q.questionId }}" data-test-part="{{ testPart }}">

@@ -76,7 +76,8 @@ html[data-question-view="single"] body {
 }
 
 html[data-question-view="single"] .js-paged-question:not(.is-current-question),
-html[data-question-view="single"] .js-paged-question-part-heading:not(.is-current-question) {
+html[data-question-view="single"] .js-paged-question-part-heading:not(.is-current-question),
+html[data-question-view="single"] .js-paged-question-part:not(.is-current-question) {
     display: none;
 }
 
@@ -89,4 +90,9 @@ html[data-question-view="single"] .js-paged-question-part-heading:not(.is-curren
 html[data-question-view="single"] .js-paged-question-part-heading {
     margin-top: 0 !important;
     padding-top: 0;
+}
+
+/* keep progress bar close to the question box in test */
+html[data-question-view="single"] .js-question-box {
+    margin-bottom: 0.5rem !important;
 }

@@ -64,10 +64,10 @@ var QuestionViewMode = {
             this._animateQuestionIn(questions[index], index > previousIndex ? 1 : -1);
         }
 
-        // in test, show only the heading of the part the current question belongs to
+        // in test, show only the heading and question container of the part the current question belongs to
         let currentPart = questions[index].dataset.testPart;
-        document.querySelectorAll('.js-paged-question-part-heading').forEach(headingElement => {
-            headingElement.classList.toggle('is-current-question', headingElement.dataset.testPart === currentPart);
+        document.querySelectorAll('.js-paged-question-part-heading, .js-paged-question-part').forEach(partElement => {
+            partElement.classList.toggle('is-current-question', partElement.dataset.testPart === currentPart);
         });
 
         // progress bar shows position of current question (test only)
