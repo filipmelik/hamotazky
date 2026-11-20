@@ -58,3 +58,17 @@
 .js-hidden {
     display: none;
 }
+
+/* one question at a time view mode */
+.question-pager {
+    display: none;
+}
+
+html[data-question-view="single"] .question-pager {
+    display: block;
+}
+
+html[data-question-view="single"] .js-paged-question:not(.is-current-question),
+html[data-question-view="single"] .js-paged-question-part-heading:not(.is-current-question) {
+    display: none;
+}

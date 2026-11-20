@@ -13,6 +13,40 @@
 
 <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
 
+    {% if showQuestionViewToggle ?? false %}
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="view-all" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+        </symbol>
+        <symbol id="view-single" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3 1h10a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm0 1v12h10V2H3zm2 2h6v1H5V4zm0 2.5h6v1H5v-1zm0 2.5h4v1H5V9z"></path>
+        </symbol>
+    </svg>
+
+    <li class="nav-item dropdown me-3 me-lg-0">
+    <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="question-view-toggle" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Zobrazení otázek">
+        <svg class="bi my-1 question-view-icon-active"><use href="#view-all"></use></svg>
+        <span class="d-lg-none ms-2">Zobrazení otázek</span>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="question-view-toggle">
+        <li>
+        <button type="button" class="dropdown-item d-flex align-items-center active" data-question-view-value="all" aria-pressed="true">
+            <svg class="bi me-2 opacity-50"><use href="#view-all"></use></svg>
+            Všechny najednou
+        </button>
+        </li>
+
+        <li>
+        <button type="button" class="dropdown-item d-flex align-items-center" data-question-view-value="single" aria-pressed="false">
+            <svg class="bi me-2 opacity-50"><use href="#view-single"></use></svg>
+            Po jedné
+        </button>
+        </li>
+    </ul>
+    </li>
+    {% endif %}
+
     <li class="nav-item dropdown">
     <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Změnit barvy (light)">
         <svg class="bi my-1 theme-icon-active"><use href="#sun-fill"></use></svg>

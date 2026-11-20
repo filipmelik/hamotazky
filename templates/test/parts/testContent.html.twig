@@ -15,14 +15,15 @@
     </div>
 
     {% for groupData in test.testParts %}
-    <div class="centered-container mt-4 pb-0">
+    {% set testPart = loop.index %}
+    <div class="centered-container mt-4 pb-0 js-paged-question-part-heading" data-test-part="{{ testPart }}">
         <span class="fs-2">Část {{ loop.index }}: {{ groupData.topicGroup.name }}</span>
     </div>
 
     <div class="row py-2 row-cols-1">
         <div class="col">
             {% for q in groupData.topicGroupQuestions %}
-                <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-question-box js-question-box-{{ q.questionId }}" data-question-id="{{ q.questionId }}">
+                <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-question-box js-question-box-{{ q.questionId }} js-paged-question" data-question-id="{{ q.questionId }}" data-test-part="{{ testPart }}">
                     <p class="mt-1 mb-3 fs-5 ms-md-3">{{ q.text }}</p>
                     <ul class="list-group mx-md-3 mb-3">
                         {% for a in q.answers %}
@@ -39,6 +40,8 @@
         </div>
     </div>
     {% endfor %} 
+
+    {{ include ('parts/questionPager.html.twig') }}
 
     <div class="d-grid gap-2 centered-container px-0 py-0">
         <button class="btn btn-lg btn-primary mb-4 js-evaluate-button" type="button">Vyhodnotit test</button>

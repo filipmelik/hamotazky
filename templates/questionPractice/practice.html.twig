@@ -40,7 +40,7 @@ HAM Otázky z kategorie {{ topicName }}
 
             <hr class="d-lg-none text-white-50">
 
-            {{ include ('parts/themeToggler.html.twig') }}
+            {{ include ('parts/themeToggler.html.twig', {showQuestionViewToggle: true}) }}
 
           </div>
         </div>
@@ -68,7 +68,7 @@ HAM Otázky z kategorie {{ topicName }}
         <div class="row py-2 row-cols-1">
             <div class="col">
                 {% for q in questions %}
-                    <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-question-box-{{ q.questionId }}">
+                    <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-paged-question js-question-box-{{ q.questionId }}">
                         <p class="mt-1 mb-3 fs-5 ms-md-3">{{ q.text }}</p>
                         <ul class="list-group mx-md-3 mb-3">
                             {% for a in q.answers %}
@@ -84,6 +84,8 @@ HAM Otázky z kategorie {{ topicName }}
                 {% endfor %}    
             </div>
         </div>
+
+        {{ include ('parts/questionPager.html.twig') }}
 
     </div>
 

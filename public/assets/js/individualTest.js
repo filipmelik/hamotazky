@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // user did not answer all questions
                 let unansweredQuestionElement = document.querySelector(`[data-question-id="${firstUnansweredQuestionId}"]`)
                 alert("Všechny otázky v testu nebyly zodpovězeny. Přesuneme vás nyní k nezodpovězené otázce.");
-                unansweredQuestionElement.scrollIntoView();
+                QuestionViewMode.reveal(unansweredQuestionElement);
             } else {
                 dataToPost = {
                     test: JSON.parse(testContent),
@@ -204,11 +204,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
             resumeTestModal.hide();
 
+            // page content was replaced, show the right question in 'one at a time' view mode
+            QuestionViewMode.refresh();
+
             // scroll to last answered question
             let lastAnsweredQuestionId = getIdOfLastAnsweredQuestion();
             if (lastAnsweredQuestionId !== null) {
                 let lastAnsweredQuestionElement = document.querySelector(`[data-question-id="${lastAnsweredQuestionId}"]`)
-                lastAnsweredQuestionElement.scrollIntoView();
+                QuestionViewMode.reveal(lastAnsweredQuestionElement);
             }
 
             beginTest();
