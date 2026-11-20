@@ -1,7 +1,10 @@
 <div class="centered-container px-0 pt-0 question-pager js-question-pager">
     <div class="d-flex justify-content-between align-items-center">
-        <button type="button" class="btn btn-lg btn-outline-primary js-question-pager-prev">← Předchozí</button>
-        <button type="button" class="btn btn-link link-secondary question-pager-position js-question-pager-position" title="Přejít na otázku…"></button>
-        <button type="button" class="btn btn-lg btn-primary js-question-pager-next">Další →</button>
+        <button type="button" class="btn btn-lg btn-outline-primary text-nowrap js-question-pager-prev">← Předchozí</button>
+        <button type="button" class="btn btn-link link-secondary text-nowrap question-pager-position js-question-pager-position" title="Přejít na otázku…"></button>
+        <button type="button" class="btn btn-lg btn-primary text-nowrap js-question-pager-next">Další →</button>
+        {% if finishButtonLabel is defined %}
+        <button type="button" class="btn btn-lg btn-success text-nowrap js-question-pager-finish d-none">{{ finishButtonLabel }}</button>
+        {% endif %}
     </div>
 </div>

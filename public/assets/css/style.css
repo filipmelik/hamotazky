@@ -146,3 +146,21 @@ html[data-question-view="single"] .question-page-grow > .centered-container {
 html[data-question-view="single"] .question-page-bottom {
     margin-top: auto;
 }
+
+/* in single question view, big evaluate button is shown only once user reached the end of the test */
+html[data-question-view="single"] .evaluate-button-container:not(.is-available) {
+    display: none !important;
+}
+
+/* narrow phones: tighter pager buttons, so "Předchozí / N / M / Vyhodnotit" fits on one row */
+@media (max-width: 575.98px) {
+    .question-pager .btn-lg {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .question-pager .question-pager-position {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+    }
+}
