@@ -108,3 +108,14 @@ html[data-question-view="single"] .js-paged-question-part-heading > span {
 html[data-question-view="single"] .js-question-box {
     margin-bottom: 0.5rem !important;
 }
+
+@media (max-width: 767.98px) {
+    /* on small screens keep only the title in the page header, to leave room for the question */
+    html[data-question-view="single"] .question-page-hero > p {
+        display: none;
+    }
+
+    html[data-question-view="single"] .question-page-hero > h1 {
+        margin-bottom: 0;
+    }
+}
