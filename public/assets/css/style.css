@@ -60,11 +60,13 @@
 }
 
 /* one question at a time view mode */
-.question-pager {
+.question-pager,
+.single-question-view-only {
     display: none;
 }
 
-html[data-question-view="single"] .question-pager {
+html[data-question-view="single"] .question-pager,
+html[data-question-view="single"] .single-question-view-only {
     display: block;
 }
 

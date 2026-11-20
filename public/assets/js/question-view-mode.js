@@ -70,6 +70,14 @@ var QuestionViewMode = {
             headingElement.classList.toggle('is-current-question', headingElement.dataset.testPart === currentPart);
         });
 
+        // progress bar shows position of current question (test only)
+        let percentage = Math.round((index + 1) / questions.length * 100);
+        document.querySelectorAll('.js-question-progress').forEach(progressElement => {
+            progressElement.querySelector('.js-question-progress-bar').style.width = percentage + '%';
+            progressElement.setAttribute('aria-valuenow', percentage);
+            progressElement.setAttribute('aria-valuetext', `Otázka ${index + 1} z ${questions.length}`);
+        });
+
         document.querySelectorAll('.js-question-pager').forEach(pagerElement => {
             pagerElement.querySelector('.js-question-pager-position').textContent = `${index + 1} / ${questions.length}`;
             pagerElement.querySelector('.js-question-pager-prev').disabled = index === 0;
