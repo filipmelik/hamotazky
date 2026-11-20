@@ -58,3 +58,91 @@
 .js-hidden {
     display: none;
 }
+
+/* one question at a time view mode */
+.question-pager,
+.single-question-view-only {
+    display: none;
+}
+
+html[data-question-view="single"] .question-pager,
+html[data-question-view="single"] .single-question-view-only {
+    display: block;
+}
+
+/* question slides in from the side, don't let it make the page horizontally scrollable */
+html[data-question-view="single"] body {
+    overflow-x: clip;
+}
+
+html[data-question-view="single"] .js-paged-question:not(.is-current-question),
+html[data-question-view="single"] .js-paged-question-part-heading:not(.is-current-question),
+html[data-question-view="single"] .js-paged-question-part:not(.is-current-question),
+html[data-question-view="single"] .single-question-view-hidden {
+    display: none;
+}
+
+.question-pager-position {
+    text-decoration: underline dotted;
+    text-underline-offset: 0.3em;
+}
+
+/* only one question is shown, no need for big gap between breadcrumbs and test part heading */
+html[data-question-view="single"] .js-paged-question-part-heading {
+    margin-top: 0 !important;
+    padding-top: 0;
+}
+
+/* test part heading is just a context for the single question, keep it low-key */
+html[data-question-view="single"] .js-paged-question-part-heading > span {
+    color: var(--bs-secondary-color);
+}
+
+@media (max-width: 767.98px) {
+    html[data-question-view="single"] .js-paged-question-part-heading > span {
+        font-size: 1.1rem !important;
+    }
+}
+
+/* keep progress bar close to the question box in test */
+html[data-question-view="single"] .js-question-box {
+    margin-bottom: 0.5rem !important;
+}
+
+@media (max-width: 767.98px) {
+    /* on small screens keep only the title in the page header, to leave room for the question */
+    html[data-question-view="single"] .question-page-hero > p {
+        display: none;
+    }
+
+    html[data-question-view="single"] .question-page-hero > h1 {
+        margin-bottom: 0;
+    }
+}
+
+/*
+ * Keep progress bar, pager and evaluate button at the bottom of the viewport when the question is short.
+ * Page content becomes a column at least as tall as the viewport, bottom block takes the free space above it.
+ * For long questions there is no free space, so the bottom block simply follows the question.
+ */
+html[data-question-view="single"] main.question-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+html[data-question-view="single"] .question-page-grow {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* in a flex column, vertical 'auto' margins of centered containers would also eat the free space */
+html[data-question-view="single"] .question-page-grow > .centered-container {
+    margin-bottom: 0;
+}
+
+html[data-question-view="single"] .question-page-bottom {
+    margin-top: auto;
+}

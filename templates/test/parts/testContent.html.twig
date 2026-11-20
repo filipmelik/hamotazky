@@ -1,9 +1,9 @@
- <div class="px-4 py-3 text-center border-bottom bg-body-tertiary my-box-shadow-2">
+ <div class="px-4 py-3 text-center border-bottom bg-body-tertiary my-box-shadow-2 question-page-hero">
     <h1 class="fs-1">Test pro třídu {{ licenceClass }} ({{ licenceClassString }})</h1>
     <p class="text-muted mb-0">Cvičný test dle stejných kritérií jako u opravdové zkoušky</p>
 </div>
 
-<div class="container px-3 py-2">
+<div class="container px-3 py-2 question-page-grow">
 
     <div class="centered-container mt-2">
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
@@ -15,14 +15,15 @@
     </div>
 
     {% for groupData in test.testParts %}
-    <div class="centered-container mt-4 pb-0">
+    {% set testPart = loop.index %}
+    <div class="centered-container mt-4 pb-0 js-paged-question-part-heading" data-test-part="{{ testPart }}">
         <span class="fs-2">Část {{ loop.index }}: {{ groupData.topicGroup.name }}</span>
     </div>
 
-    <div class="row py-2 row-cols-1">
+    <div class="row py-2 row-cols-1 js-paged-question-part" data-test-part="{{ testPart }}">
         <div class="col">
             {% for q in groupData.topicGroupQuestions %}
-                <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-question-box js-question-box-{{ q.questionId }}" data-question-id="{{ q.questionId }}">
+                <div class="py-3 mt-2 mb-4 centered-container bg-body-secondary bg-opacity-75 my-box-shadow-1 js-question-box js-question-box-{{ q.questionId }} js-paged-question" data-question-id="{{ q.questionId }}" data-test-part="{{ testPart }}">
                     <p class="mt-1 mb-3 fs-5 ms-md-3">{{ q.text }}</p>
                     <ul class="list-group mx-md-3 mb-3">
                         {% for a in q.answers %}
@@ -40,8 +41,18 @@
     </div>
     {% endfor %} 
 
-    <div class="d-grid gap-2 centered-container px-0 py-0">
-        <button class="btn btn-lg btn-primary mb-4 js-evaluate-button" type="button">Vyhodnotit test</button>
+    <div class="question-page-bottom">
+        <div class="centered-container px-0 pt-0 single-question-view-only">
+            <div class="progress js-question-progress" role="progressbar" aria-label="Postup testem" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar js-question-progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        {{ include ('parts/questionPager.html.twig') }}
+
+        <div class="d-grid gap-2 centered-container px-0 py-0">
+            <button class="btn btn-lg btn-primary mb-4 js-evaluate-button" type="button">Vyhodnotit test</button>
+        </div>
     </div>
 
 </div>

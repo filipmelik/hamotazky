@@ -16,6 +16,8 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
   <script src="{{ asset('assets/js/individualTest.js') }}"></script>
 {% endblock %}
 
+{% block mainClass %}question-page{% endblock %}
+
 {% block body %}
 
 <header class="navbar navbar-expand-lg bd-navbar border-bottom">
@@ -49,7 +51,7 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
 
         <hr class="d-lg-none text-white-50">
 
-        {{ include ('parts/themeToggler.html.twig') }}
+        {{ include ('parts/themeToggler.html.twig', {showQuestionViewToggle: true}) }}
 
       </div>
     </div>
@@ -78,10 +80,12 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
   </div>
 </div>
 
-<div class="js-test-content-html">
+<div class="js-test-content-html question-page-grow">
     {{ include ('test/parts/testContent.html.twig') }}
 </div>
 
-{{ include ('parts/footer.html.twig') }}
+{{ include ('parts/goToQuestionModal.html.twig') }}
+
+{{ include ('parts/footer.html.twig', {hideInSingleQuestionView: true}) }}
 
 {% endblock %}

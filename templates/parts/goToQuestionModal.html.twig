@@ -1,0 +1,19 @@
+<div class="modal fade" id="goToQuestionModal" tabindex="-1" aria-labelledby="goToQuestionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <form class="modal-content" novalidate>
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="goToQuestionModalLabel">Přejít na otázku</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zavřít"></button>
+      </div>
+      <div class="modal-body">
+        <label for="go-to-question-input" class="form-label">Číslo otázky (1–<span class="js-go-to-question-count"></span>)</label>
+        <input type="number" class="form-control form-control-lg js-go-to-question-input" id="go-to-question-input" min="1" step="1" inputmode="numeric" required>
+        <div class="invalid-feedback">Zadej číslo otázky ze zobrazeného rozsahu.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
+        <button type="submit" class="btn btn-primary">Přejít</button>
+      </div>
+    </form>
+  </div>
+</div>
