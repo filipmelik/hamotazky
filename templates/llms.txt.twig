@@ -1,0 +1,45 @@
+{% set baseUrl = url('homepage') %}
+# hamotazky.cz
+
+> Free website for learning the official question set of the Czech amateur radio operator licence exam, run by the Czech Telecommunication Office (ČTÚ), for operator classes A (HAREC) and N (NOVICE). Questions can be browsed with their correct answers, practised by topic and tried in a mock exam scored by the same criteria as the real one. The question data is also published through a public REST API and as JSON and SQLite downloads.
+
+- The website is in Czech.
+- The questions match the current official question set published by ČTÚ.
+- ČTÚ publishes only the correct answers. The wrong answer options on this site are indicative only and may differ from the real exam.
+- Class A (HAREC) allows operating on all permitted amateur bands with higher power, class N (NOVICE) is an entry level class with restrictions. Upgrading from N to A later means taking the full class A exam again, not only the difference, so the site recommends going straight for class A.
+- The exam has three parts (radio regulations, radio operating practice, electrical and radio engineering) and each part has to be passed separately.
+
+## Class A (HAREC)
+
+- [Prohlížení otázek HAREC]({{ url('harec-listing-topic-list') }}): list of topics for browsing class A questions with correct answers
+- [Všechny otázky HAREC]({{ url('harec-listing-topic-questions', {topicSlug: 'vse'}) }}): all class A questions with correct answers on one page
+{% for t in harecTopics %}
+- [{{ t.name }}]({{ url('harec-listing-topic-questions', {topicSlug: t.topicSlug}) }}): {{ t.questionCount }} class A questions with correct answers
+{% endfor %}
+- [Procvičování otázek HAREC]({{ url('harec-practice-topic-list') }}): interactive practice by topic, the correct answer is revealed after choosing one
+- [Cvičný test HAREC]({{ url('harec-individual-test') }}): interactive mock exam for class A
+
+## Class N (NOVICE)
+
+- [Prohlížení otázek NOVICE]({{ url('novice-listing-topic-list') }}): list of topics for browsing class N questions with correct answers
+- [Všechny otázky NOVICE]({{ url('novice-listing-topic-questions', {topicSlug: 'vse'}) }}): all class N questions with correct answers on one page
+{% for t in noviceTopics %}
+- [{{ t.name }}]({{ url('novice-listing-topic-questions', {topicSlug: t.topicSlug}) }}): {{ t.questionCount }} class N questions with correct answers
+{% endfor %}
+- [Procvičování otázek NOVICE]({{ url('novice-practice-topic-list') }}): interactive practice by topic, the correct answer is revealed after choosing one
+- [Cvičný test NOVICE]({{ url('novice-individual-test') }}): interactive mock exam for class N
+
+## API
+
+- [REST API documentation]({{ baseUrl }}api/v1/docs/): interactive Swagger UI documentation of the public JSON API, no authentication needed, CORS enabled
+- [OpenAPI specification]({{ baseUrl }}api-docs/hamtest-api.yaml): machine-readable OpenAPI 3 description of all endpoints
+- [Topics]({{ url('api-v1-get-topics') }}?licenceClass=A): `GET /api/v1/topics` lists topics with their IDs, slugs and question counts, `licenceClass` is `A` or `N`
+- [Random questions]({{ url('api-v1-get-random-questions') }}?licenceClass=A&count=10): `GET /api/v1/random-questions` returns random questions, optionally filtered by comma-separated `topicSlug` and `licenceClass`, `count` 1-100
+- [Questions by IDs]({{ url('api-v1-get-questions-by-ids', {questionIds: '1,2,3'}) }}): `GET /api/v1/questions/{ids}` returns up to 100 questions by comma-separated IDs, in the requested order
+- [Mock exam]({{ url('api-v1-get-test') }}?licenceClass=A): `GET /api/v1/get-test` composes a random test following the official exam criteria; answers are evaluated with `POST /api/v1/evaluate-test`
+
+## Optional
+
+- [Question data as JSON]({{ url('download-json-questions') }}): all questions for both classes in one JSON file
+- [Question data as SQLite]({{ url('download-sqlite-questions') }}): all questions for both classes as an SQLite 3 database
+- [Sitemap]({{ baseUrl }}sitemap.xml): all public pages
