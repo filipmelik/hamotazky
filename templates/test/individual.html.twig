@@ -16,6 +16,8 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
   <script src="{{ asset('assets/js/individualTest.js') }}"></script>
 {% endblock %}
 
+{% block mainClass %}question-page{% endblock %}
+
 {% block body %}
 
 <header class="navbar navbar-expand-lg bd-navbar border-bottom">
@@ -78,7 +80,7 @@ Cvičný test z HAM otázek pro operátorskou třídu {{ licenceClass }}
   </div>
 </div>
 
-<div class="js-test-content-html">
+<div class="js-test-content-html question-page-grow">
     {{ include ('test/parts/testContent.html.twig') }}
 </div>
 

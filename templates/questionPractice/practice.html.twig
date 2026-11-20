@@ -9,6 +9,8 @@ HAM Otázky z kategorie {{ topicName }}
   <script src="{{ asset('assets/js/practice.js') }}"></script>     
 {% endblock %}
 
+{% block mainClass %}question-page{% endblock %}
+
 {% block body %}
 
     <header class="navbar navbar-expand-lg bd-navbar border-bottom">
@@ -53,7 +55,7 @@ HAM Otázky z kategorie {{ topicName }}
         <p class="text-muted mb-0">Celkem {{ questionCount }} otázek</p>
     </div>
 
-    <div class="container px-3 py-2">
+    <div class="container px-3 py-2 question-page-grow">
 
         <div class="centered-container mt-2">
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
@@ -85,7 +87,9 @@ HAM Otázky z kategorie {{ topicName }}
             </div>
         </div>
 
-        {{ include ('parts/questionPager.html.twig') }}
+        <div class="question-page-bottom">
+            {{ include ('parts/questionPager.html.twig') }}
+        </div>
 
     </div>
 

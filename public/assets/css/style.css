@@ -119,3 +119,30 @@ html[data-question-view="single"] .js-question-box {
         margin-bottom: 0;
     }
 }
+
+/*
+ * Keep progress bar, pager and evaluate button at the bottom of the viewport when the question is short.
+ * Page content becomes a column at least as tall as the viewport, bottom block takes the free space above it.
+ * For long questions there is no free space, so the bottom block simply follows the question.
+ */
+html[data-question-view="single"] main.question-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+html[data-question-view="single"] .question-page-grow {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* in a flex column, vertical 'auto' margins of centered containers would also eat the free space */
+html[data-question-view="single"] .question-page-grow > .centered-container {
+    margin-bottom: 0;
+}
+
+html[data-question-view="single"] .question-page-bottom {
+    margin-top: auto;
+}
