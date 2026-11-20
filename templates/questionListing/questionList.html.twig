@@ -94,6 +94,6 @@ HAM Otázky z kategorie {{ topicName }}
 
     {{ include ('parts/goToQuestionModal.html.twig') }}
 
-    {{ include ('parts/footer.html.twig') }}
+    {{ include ('parts/footer.html.twig', {hideInSingleQuestionView: true}) }}
 
 {% endblock %}

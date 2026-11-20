@@ -77,7 +77,8 @@ html[data-question-view="single"] body {
 
 html[data-question-view="single"] .js-paged-question:not(.is-current-question),
 html[data-question-view="single"] .js-paged-question-part-heading:not(.is-current-question),
-html[data-question-view="single"] .js-paged-question-part:not(.is-current-question) {
+html[data-question-view="single"] .js-paged-question-part:not(.is-current-question),
+html[data-question-view="single"] .single-question-view-hidden {
     display: none;
 }
 
