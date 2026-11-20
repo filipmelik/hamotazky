@@ -82,7 +82,20 @@ var QuestionViewMode = {
             pagerElement.querySelector('.js-question-pager-position').textContent = `${index + 1} / ${questions.length}`;
             pagerElement.querySelector('.js-question-pager-prev').disabled = index === 0;
             pagerElement.querySelector('.js-question-pager-next').disabled = index === questions.length - 1;
+
+            // on the last question, "next" button is replaced by "finish" button, if page has one (test)
+            let finishButton = pagerElement.querySelector('.js-question-pager-finish');
+            if (finishButton) {
+                pagerElement.querySelector('.js-question-pager-next').classList.toggle('d-none', index === questions.length - 1);
+                finishButton.classList.toggle('d-none', index !== questions.length - 1);
+            }
         });
+
+        document.dispatchEvent(new CustomEvent('questionviewchange'));
+    },
+
+    isLastQuestion: function() {
+        return this._currentIndex === this._getQuestions().length - 1;
     },
 
     showNextQuestion: function() {

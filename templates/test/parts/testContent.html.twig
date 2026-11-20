@@ -48,9 +48,9 @@
             </div>
         </div>
 
-        {{ include ('parts/questionPager.html.twig') }}
+        {{ include ('parts/questionPager.html.twig', {finishButtonLabel: 'Vyhodnotit'}) }}
 
-        <div class="d-grid gap-2 centered-container px-0 py-0">
+        <div class="d-grid gap-2 centered-container px-0 py-0 evaluate-button-container js-evaluate-button-container">
             <button class="btn btn-lg btn-primary mb-4 js-evaluate-button" type="button">Vyhodnotit test</button>
         </div>
     </div>

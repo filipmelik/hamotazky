@@ -28,33 +28,66 @@ document.addEventListener("DOMContentLoaded", function() {
                 let questionBoxElement = document.querySelector('.js-question-box-' + questionId);
 
                 if (questionBoxElement.dataset.selectedAnswerId === answerId && QuestionViewMode.isSingleMode()) {
-                    // clicking already selected answer again moves to the next question
-                    QuestionViewMode.showNextQuestion();
+                    // clicking already selected answer again moves to the next question, or evaluates the test on the last one
+                    if (QuestionViewMode.isLastQuestion()) {
+                        evaluateTest();
+                    } else {
+                        QuestionViewMode.showNextQuestion();
+                    }
                     return;
                 }
 
                 selectAnswerForQuestionId(questionId, answerId);
+                updateEvaluateButtonAvailability();
                 saveCurrentTestProgress();
                 TestStorage.saveTest(testContent);
             })
         });
 
-        document.querySelector('.js-evaluate-button').addEventListener('click', () => {
-            let firstUnansweredQuestionId = getIdOfFirstUnansweredQuestion();
-
-            if (firstUnansweredQuestionId !== null) {
-                // user did not answer all questions
-                let unansweredQuestionElement = document.querySelector(`[data-question-id="${firstUnansweredQuestionId}"]`)
-                alert("Všechny otázky v testu nebyly zodpovězeny. Přesuneme vás nyní k nezodpovězené otázce.");
-                QuestionViewMode.reveal(unansweredQuestionElement);
-            } else {
-                dataToPost = {
-                    test: JSON.parse(testContent),
-                    answers: collectTestAnswers(),
-                }
-                postData(testEvaluationUrl, dataToPost);
-            }
+        document.querySelectorAll('.js-evaluate-button, .js-question-pager-finish').forEach(evaluateButton => {
+            evaluateButton.addEventListener('click', () => {
+                evaluateTest();
+            });
         });
+
+        updateEvaluateButtonAvailability();
+    }
+
+    // question shown in 'one at a time' view mode changed
+    document.addEventListener('questionviewchange', () => {
+        updateEvaluateButtonAvailability();
+    });
+
+    function evaluateTest() {
+        let firstUnansweredQuestionId = getIdOfFirstUnansweredQuestion();
+
+        if (firstUnansweredQuestionId !== null) {
+            // user did not answer all questions
+            let unansweredQuestionElement = document.querySelector(`[data-question-id="${firstUnansweredQuestionId}"]`)
+            alert("Všechny otázky v testu nebyly zodpovězeny. Přesuneme vás nyní k nezodpovězené otázce.");
+            QuestionViewMode.reveal(unansweredQuestionElement);
+        } else {
+            dataToPost = {
+                test: JSON.parse(testContent),
+                answers: collectTestAnswers(),
+            }
+            postData(testEvaluationUrl, dataToPost);
+        }
+    }
+
+    /**
+     * In 'one at a time' view mode, big evaluate button is shown only after user reached the end of the test
+     * (answered the last question) and went back to answer skipped questions. On the last question itself,
+     * the pager's "finish" button is used instead.
+     */
+    function updateEvaluateButtonAvailability() {
+        let containerElement = document.querySelector('.js-evaluate-button-container');
+        let questionBoxes = document.querySelectorAll('.js-question-box');
+        if (!containerElement || questionBoxes.length === 0) {
+            return;
+        }
+        let lastQuestionAnswered = !!questionBoxes[questionBoxes.length - 1].dataset.selectedAnswerId;
+        containerElement.classList.toggle('is-available', lastQuestionAnswered && !QuestionViewMode.isLastQuestion());
     }
 
     function postData(path, params) { 
