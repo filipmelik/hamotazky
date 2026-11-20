@@ -73,7 +73,7 @@ class IndividualTestController extends AbstractController
      */
     private function resumeTest(Request $request): Response {
       try {
-        $test = json_decode(base64_decode($request->get('test')), true);
+        $test = json_decode(base64_decode($request->request->get('test')), true);
         $licenceClass = $test['licenceClass'];
 
         $responseHtml = $this->renderView('test/parts/testContent.html.twig', [
@@ -106,8 +106,8 @@ class IndividualTestController extends AbstractController
       Request $request,
       IndividualTestEvaluator $testEvaluator, 
     ): Response {
-      $answers = json_decode(base64_decode($request->get('answers')), true);
-      $test = json_decode(base64_decode($request->get('test')), true);
+      $answers = json_decode(base64_decode($request->request->get('answers')), true);
+      $test = json_decode(base64_decode($request->request->get('test')), true);
       $licenceClass = $test['licenceClass'];
 
       try {
