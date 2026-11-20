@@ -93,6 +93,17 @@ html[data-question-view="single"] .js-paged-question-part-heading {
     padding-top: 0;
 }
 
+/* test part heading is just a context for the single question, keep it low-key */
+html[data-question-view="single"] .js-paged-question-part-heading > span {
+    color: var(--bs-secondary-color);
+}
+
+@media (max-width: 767.98px) {
+    html[data-question-view="single"] .js-paged-question-part-heading > span {
+        font-size: 1.1rem !important;
+    }
+}
+
 /* keep progress bar close to the question box in test */
 html[data-question-view="single"] .js-question-box {
     margin-bottom: 0.5rem !important;
